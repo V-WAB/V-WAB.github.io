@@ -9,6 +9,7 @@ replacing the hand-drawn line-art placeholder. Anything missing keeps its illust
 | `hero-jar.jpg` | `HERO_IMAGE_JAR` | Right side of the hero drag-reveal (finished Banini jar) |
 | `story.jpg` or `story.mp4` | `STORY_IMAGE` / `STORY_VIDEO` | Brand story section, beside the founder's note. The video wins if both exist and is lazy-loaded. |
 | `product.jpg` | `PRODUCT_IMAGE` | The Jar section, replacing the illustrated jars. Most important slot. |
+| `scents.jpg` | Scent range | The Blends section. The frame stays hidden until this file exists, so the section reads fine without it. |
 | `texture.jpg` | `TEXTURE_IMAGE` (optional) | Not wired by default. See the `SLOTS` object at the bottom of `index.html` to place it. |
 
 Notes

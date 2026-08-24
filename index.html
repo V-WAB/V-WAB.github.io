@@ -271,6 +271,79 @@ footer{padding:44px 0}
 .foot-in .wordmark{font-size:22px}
 .foot-in p{margin:0}
 
+/* ---------- scents ---------- */
+.scent-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(24px,3.4vw,44px);margin-top:56px}
+.scent{border-top:1px solid var(--line);padding-top:24px}
+.scent .label{color:var(--gold);display:block;margin-bottom:12px}
+.scent h3{margin-bottom:6px}
+.scent .blend{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-bottom:12px}
+.scent p{margin:0;font-size:15.5px;color:var(--ink-soft)}
+.size-strip{display:flex;flex-wrap:wrap;gap:10px 34px;margin-top:44px;padding-top:22px;border-top:1px solid var(--line-soft)}
+.size-strip span{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)}
+.size-strip b{color:var(--gold);font-weight:400}
+@media (max-width:880px){.scent-grid{grid-template-columns:1fr}}
+
+/* ---------- reserve ---------- */
+.reserve-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(36px,5vw,76px);align-items:start;margin-top:52px}
+fieldset{border:0;margin:0 0 32px;padding:0;min-width:0}
+legend{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);padding:0 0 16px}
+.opt-row{display:grid;gap:10px}
+.opt{
+  display:grid;grid-template-columns:18px 1fr auto;align-items:baseline;gap:14px;
+  border:1px solid var(--line);background:var(--cream);padding:15px 18px;cursor:pointer;
+  transition:border-color .25s ease,background .25s ease;
+}
+.opt:hover{border-color:var(--gold-soft)}
+.opt input{appearance:none;-webkit-appearance:none;width:14px;height:14px;margin:0;border:1px solid var(--ink-soft);border-radius:50%;position:relative;top:2px;cursor:pointer}
+.opt input:checked{border-color:var(--green);box-shadow:inset 0 0 0 3px var(--cream),inset 0 0 0 9px var(--green)}
+.opt input:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.opt:has(input:checked){border-color:var(--green);background:var(--kraft)}
+.opt-name{font-size:16.5px}
+.opt-note{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);grid-column:2;grid-row:2}
+.opt-price{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--gold)}
+.qty-row{display:flex;flex-wrap:wrap;align-items:flex-end;gap:14px}
+.field{display:flex;flex-direction:column;gap:8px;min-width:0}
+.field label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)}
+.field input,.field textarea{
+  background:var(--cream);border:1px solid var(--line);padding:14px 16px;
+  font-family:var(--body);font-size:16px;font-weight:300;color:var(--ink);width:100%;
+}
+.field textarea{resize:vertical;min-height:88px}
+.field input:focus-visible,.field textarea:focus-visible{outline:2px solid var(--gold);outline-offset:0}
+.field.narrow{max-width:130px}
+.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:880px){.field-grid{grid-template-columns:1fr}}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+.media-frame.wide{aspect-ratio:16/7;margin-top:clamp(48px,6vw,72px)}
+.basket{border:1px solid var(--line);background:var(--kraft);padding:clamp(22px,3vw,32px);position:sticky;top:96px}
+.basket h3{margin-bottom:18px}
+.basket-empty{font-size:15.5px;color:var(--ink-soft);margin:0}
+.lines{list-style:none;margin:0;padding:0}
+.lines li{display:grid;grid-template-columns:1fr auto auto;gap:14px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--line-soft)}
+.lines .line-name{font-size:16px}
+.lines .line-name small{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-top:4px}
+.lines .line-cost{font-family:var(--mono);font-size:12px;letter-spacing:.08em}
+.lines .remove{
+  background:none;border:0;padding:4px 6px;cursor:pointer;color:var(--ink-soft);
+  font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+}
+.lines .remove:hover{color:var(--clay)}
+.basket-total{display:flex;justify-content:space-between;align-items:baseline;margin-top:20px;padding-top:18px;border-top:1px solid var(--line)}
+.basket-total .mono{color:var(--ink-soft)}
+.basket-total b{font-family:var(--display);font-size:30px;font-weight:400;color:var(--green)}
+.basket-note{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin:18px 0 0;line-height:1.9}
+.reserve-actions{display:flex;flex-wrap:wrap;gap:16px;align-items:center;margin-top:28px}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.done{border:1px solid var(--green);background:var(--kraft);padding:clamp(26px,4vw,40px)}
+.done h3{margin-bottom:14px}
+.done .ref{font-family:var(--mono);font-size:15px;letter-spacing:.16em;color:var(--gold);display:block;margin:18px 0}
+.done p{margin:0 0 .8em;font-size:16px;color:var(--ink-soft)}
+@media (max-width:880px){
+  .reserve-grid{grid-template-columns:1fr}
+  .basket{position:static}
+}
+
 /* ---------- reveal motion ---------- */
 .r{opacity:0;transform:translateY(20px);transition:opacity .8s cubic-bezier(.22,.61,.36,1),transform .8s cubic-bezier(.22,.61,.36,1)}
 .r.in{opacity:1;transform:none}
@@ -295,6 +368,7 @@ footer{padding:44px 0}
         <li><a href="#story">Story</a></li>
         <li><a href="#standing">Standing</a></li>
         <li><a href="#jar">The Jar</a></li>
+        <li><a href="#scents">Scents</a></li>
         <li><a href="#voices">Voices</a></li>
       </ul>
     </nav>
@@ -310,7 +384,7 @@ footer{padding:44px 0}
       <h1 class="r d1">Raw to <em>Refined.</em></h1>
       <p class="lede r d2">Whipped shea butter, hand-churned from nuts gathered on the northern savannah, refined into something Ghana hasn't quite offered the world before.</p>
       <div class="hero-cta r d3">
-        <a class="btn" href="#waitlist">Reserve a jar</a>
+        <a class="btn" href="#reserve">Reserve a jar</a>
         <a class="link-ghost" href="#story">Read the story</a>
       </div>
     </div>
@@ -549,6 +623,48 @@ footer{padding:44px 0}
   </div>
 </section>
 
+<hr class="rule">
+
+<section id="scents" aria-labelledby="scents-h">
+  <div class="shell">
+    <span class="eyebrow r">The blends</span>
+    <h2 id="scents-h" class="r d1">Three ways to <em>wear it.</em></h2>
+    <p class="lede r d2">One butter, three finishes. The base never changes, only what we scent it with, and every blend is essential oil rather than fragrance oil.</p>
+
+    <div class="scent-grid">
+      <article class="scent r">
+        <span class="label">01</span>
+        <h3>Sunrise</h3>
+        <span class="blend">Lemongrass and sweet orange</span>
+        <p>Bright and lifting. Made for mornings and for skin that wants waking up.</p>
+      </article>
+      <article class="scent r d1">
+        <span class="label">02</span>
+        <h3>Warm Heritage</h3>
+        <span class="blend">Raw cocoa and benzoin</span>
+        <p>Deep and comforting, the smell of a roasting yard in the north.</p>
+      </article>
+      <article class="scent r d2">
+        <span class="label">03</span>
+        <h3>Nightfall</h3>
+        <span class="blend">Lavender and frankincense</span>
+        <p>Calm and slow. The jar you reach for once the day is finished.</p>
+      </article>
+    </div>
+
+    <div class="size-strip r" id="sizeStrip">
+      <span>Every blend, three sizes</span>
+      <span data-size-strip="50ml">50ml <b>&#8373;60</b></span>
+      <span data-size-strip="300ml">300ml <b>&#8373;200</b></span>
+      <span data-size-strip="600ml">600ml <b>&#8373;360</b></span>
+    </div>
+
+    <figure class="media-frame wide r d1" data-slot="scents" hidden>
+      <figcaption>Drop a scent range photograph into assets to show it here.</figcaption>
+    </figure>
+  </div>
+</section>
+
 <section class="band" id="voices" aria-labelledby="voices-h">
   <div class="shell">
     <span class="eyebrow r">Voices</span>
@@ -568,6 +684,90 @@ footer{padding:44px 0}
       </figure>
     </div>
     <p class="source r">Quotes from internal consumer testing, 31 testers, 24 hour trial</p>
+  </div>
+</section>
+
+<section id="reserve" aria-labelledby="reserve-h">
+  <div class="shell">
+    <span class="eyebrow r">Reserve</span>
+    <h2 id="reserve-h" class="r d1">Pick your jars, we will <em>hold them.</em></h2>
+    <p class="lede r d2">Reservations are free and nothing is charged today. Tell me which blends and sizes you want and I will write to you with the total and the delivery options once the first run is whipped.</p>
+
+    <div class="reserve-grid">
+      <form id="reserveForm" class="r" novalidate>
+        <fieldset>
+          <legend>01 / Choose a blend</legend>
+          <div class="opt-row" id="scentOptions">
+            <label class="opt"><input type="radio" name="scent" value="sunrise" checked><span class="opt-name">Sunrise</span><span class="opt-note">Lemongrass and sweet orange</span></label>
+            <label class="opt"><input type="radio" name="scent" value="warm-heritage"><span class="opt-name">Warm Heritage</span><span class="opt-note">Raw cocoa and benzoin</span></label>
+            <label class="opt"><input type="radio" name="scent" value="nightfall"><span class="opt-name">Nightfall</span><span class="opt-note">Lavender and frankincense</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>02 / Choose a size</legend>
+          <div class="opt-row" id="sizeOptions">
+            <label class="opt"><input type="radio" name="size" value="50ml" data-price="60"><span class="opt-name">50ml</span><span class="opt-price" data-price-for="50ml">&#8373;60</span></label>
+            <label class="opt"><input type="radio" name="size" value="300ml" data-price="200" checked><span class="opt-name">300ml</span><span class="opt-price" data-price-for="300ml">&#8373;200</span></label>
+            <label class="opt"><input type="radio" name="size" value="600ml" data-price="360"><span class="opt-name">600ml</span><span class="opt-price" data-price-for="600ml">&#8373;360</span></label>
+          </div>
+          <div class="qty-row" style="margin-top:20px">
+            <div class="field narrow">
+              <label for="qty">Jars</label>
+              <input type="number" id="qty" name="qty" min="1" max="12" step="1" value="1" inputmode="numeric">
+            </div>
+            <button type="button" class="btn btn-ghost" id="addLine">Add to reservation</button>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>03 / Where it goes</legend>
+          <div class="field-grid">
+            <div class="field">
+              <label for="fullName">Name</label>
+              <input type="text" id="fullName" name="fullName" autocomplete="name" maxlength="120" required>
+            </div>
+            <div class="field">
+              <label for="orderEmail">Email</label>
+              <input type="email" id="orderEmail" name="orderEmail" autocomplete="email" maxlength="254" required>
+            </div>
+            <div class="field">
+              <label for="phone">Phone, optional</label>
+              <input type="tel" id="phone" name="phone" autocomplete="tel" maxlength="40">
+            </div>
+            <div class="field">
+              <label for="city">Town or city, optional</label>
+              <input type="text" id="city" name="city" autocomplete="address-level2" maxlength="120">
+            </div>
+          </div>
+          <div class="field" style="margin-top:18px">
+            <label for="notes">Anything I should know, optional</label>
+            <textarea id="notes" name="notes" maxlength="1000" rows="3"></textarea>
+          </div>
+          <div class="hp" aria-hidden="true">
+            <label for="company">Company</label>
+            <input type="text" id="company" name="company" tabindex="-1" autocomplete="off">
+          </div>
+        </fieldset>
+
+        <div class="reserve-actions">
+          <button class="btn" type="submit" id="reserveSubmit">Place reservation</button>
+          <span class="fineprint">No card, no charge, no obligation.</span>
+        </div>
+        <p class="form-note" id="reserveNote" role="status" aria-live="polite"></p>
+      </form>
+
+      <aside class="basket r d1" aria-labelledby="basket-h">
+        <h3 id="basket-h">Your reservation</h3>
+        <p class="basket-empty" id="basketEmpty">Nothing held yet. Choose a blend and a size, then add it here.</p>
+        <ul class="lines" id="lines"></ul>
+        <div class="basket-total" hidden id="basketTotal">
+          <span class="mono">Indicative total</span>
+          <b><span id="totalValue">&#8373;0</span></b>
+        </div>
+        <p class="basket-note">Prices are what our testers named for a 300ml jar, scaled for the other two sizes. I will confirm the final total and delivery before anything is paid.</p>
+      </aside>
+    </div>
   </div>
 </section>
 
@@ -594,6 +794,7 @@ footer{padding:44px 0}
   </div>
 </footer>
 
+<script src="config.js"></script>
 <script>
 (function(){
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -632,6 +833,49 @@ footer{padding:44px 0}
     items.forEach(function(el){ io.observe(el); });
   }
 
+  /* ---- supabase ---- */
+  var cfg = window.BANINI_CONFIG || {};
+  var API = String(cfg.supabaseUrl || "").replace(/\/+$/, "");
+  var KEY = String(cfg.supabaseAnonKey || "");
+  var connected = Boolean(API && KEY);
+  var NOT_CONNECTED = "The ordering system is not connected yet. Add your Supabase details to config.js.";
+
+  if (!connected) {
+    console.warn("Banini: supabaseUrl and supabaseAnonKey are empty in config.js, so the forms cannot submit.");
+  }
+
+  var rpc = function(fn, body){
+    if (!connected) return Promise.reject({ hint: NOT_CONNECTED });
+    return fetch(API + "/rest/v1/rpc/" + fn, {
+      method: "POST",
+      headers: {
+        "apikey": KEY,
+        "Authorization": "Bearer " + KEY,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(body)
+    }).then(function(res){
+      return res.text().then(function(text){
+        var data = null;
+        try { data = text ? JSON.parse(text) : null; } catch (e) { data = null; }
+        if (!res.ok) throw (data || { hint: "Something went wrong at our end. Please try again in a moment." });
+        return data;
+      });
+    });
+  };
+
+  var reason = function(err){
+    if (!err) return "Something went wrong. Please try again.";
+    return err.hint || err.message || "Something went wrong. Please try again.";
+  };
+
+  var EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  var cedi = function(n){
+    var whole = Math.round(n * 100) / 100;
+    var text = whole % 1 === 0 ? String(whole) : whole.toFixed(2);
+    return "\u20B5" + text.replace(/\B(?=(\d{3})+(?!\d))/, ",");
+  };
+
   /* ---- waitlist ---- */
   var form = document.getElementById("signup");
   var note = document.getElementById("formNote");
@@ -640,16 +884,214 @@ footer{padding:44px 0}
       ev.preventDefault();
       var field = document.getElementById("email");
       var value = field.value.trim();
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)){
+      var button = form.querySelector("button");
+      if (!EMAIL.test(value)){
         note.dataset.state = "error";
         note.textContent = "That email does not look right. Try again.";
         field.focus();
         return;
       }
+      button.disabled = true;
       note.dataset.state = "ok";
-      note.textContent = "You are on the list. I will write to you when the first run is whipped.";
-      form.reset();
+      note.textContent = "Adding you to the list.";
+      rpc("join_waitlist", { p_email: value, p_source: "waitlist" }).then(function(data){
+        note.dataset.state = "ok";
+        note.textContent = data && data.already_joined
+          ? "You are already on the list. I will write when the first run is whipped."
+          : "You are on the list. I will write to you when the first run is whipped.";
+        form.reset();
+      }).catch(function(err){
+        note.dataset.state = "error";
+        note.textContent = reason(err);
+      }).then(function(){
+        button.disabled = false;
+      });
     });
+  }
+
+  /* ---- reservation ---- */
+  var rForm = document.getElementById("reserveForm");
+  if (rForm){
+    var rNote = document.getElementById("reserveNote");
+    var linesEl = document.getElementById("lines");
+    var emptyEl = document.getElementById("basketEmpty");
+    var totalEl = document.getElementById("basketTotal");
+    var totalValue = document.getElementById("totalValue");
+    var submitBtn = document.getElementById("reserveSubmit");
+    var qtyEl = document.getElementById("qty");
+    var lines = [];
+    var placed = false;
+
+    var checked = function(name){ return rForm.querySelector('input[name="' + name + '"]:checked'); };
+    var labelFor = function(input){
+      var el = input.closest(".opt").querySelector(".opt-name");
+      return el ? el.textContent.trim() : input.value;
+    };
+    var priceFor = function(size){
+      var input = rForm.querySelector('input[name="size"][value="' + size + '"]');
+      return input ? parseFloat(input.dataset.price) || 0 : 0;
+    };
+
+    var render = function(){
+      linesEl.textContent = "";
+      var total = 0;
+      lines.forEach(function(line, index){
+        var cost = priceFor(line.size) * line.quantity;
+        total += cost;
+
+        var li = document.createElement("li");
+        var name = document.createElement("span");
+        name.className = "line-name";
+        name.textContent = line.scentName + ", " + line.size;
+        var small = document.createElement("small");
+        small.textContent = line.quantity + (line.quantity === 1 ? " jar" : " jars");
+        name.appendChild(small);
+
+        var cell = document.createElement("span");
+        cell.className = "line-cost";
+        cell.textContent = cedi(cost);
+
+        li.appendChild(name);
+        li.appendChild(cell);
+
+        if (!placed){
+          var remove = document.createElement("button");
+          remove.type = "button";
+          remove.className = "remove";
+          remove.textContent = "Remove";
+          remove.setAttribute("aria-label", "Remove " + line.quantity + " " + line.scentName + " " + line.size);
+          remove.addEventListener("click", function(){
+            lines.splice(index, 1);
+            render();
+          });
+          li.appendChild(remove);
+        }
+        linesEl.appendChild(li);
+      });
+
+      emptyEl.hidden = lines.length > 0;
+      totalEl.hidden = lines.length === 0;
+      totalValue.textContent = cedi(total);
+    };
+
+    document.getElementById("addLine").addEventListener("click", function(){
+      var scent = checked("scent");
+      var size = checked("size");
+      var quantity = Math.min(12, Math.max(1, parseInt(qtyEl.value, 10) || 1));
+      qtyEl.value = quantity;
+      if (!scent || !size) return;
+
+      var existing = null;
+      lines.forEach(function(line){
+        if (line.scent === scent.value && line.size === size.value) existing = line;
+      });
+
+      if (existing){
+        existing.quantity = Math.min(12, existing.quantity + quantity);
+      } else if (lines.length >= 10){
+        rNote.dataset.state = "error";
+        rNote.textContent = "A single reservation holds up to 10 lines. Write to me for anything larger.";
+        return;
+      } else {
+        lines.push({ scent: scent.value, scentName: labelFor(scent), size: size.value, quantity: quantity });
+      }
+
+      rNote.dataset.state = "ok";
+      rNote.textContent = "Added " + quantity + " " + labelFor(scent) + " " + size.value + ".";
+      render();
+    });
+
+    rForm.addEventListener("submit", function(ev){
+      ev.preventDefault();
+      if (document.getElementById("company").value) return;   // honeypot
+
+      var name = document.getElementById("fullName");
+      var email = document.getElementById("orderEmail");
+
+      if (!lines.length){
+        rNote.dataset.state = "error";
+        rNote.textContent = "Add at least one jar before you reserve.";
+        return;
+      }
+      if (name.value.trim().length < 2){
+        rNote.dataset.state = "error";
+        rNote.textContent = "Please give me a name to hold the jars under.";
+        name.focus();
+        return;
+      }
+      if (!EMAIL.test(email.value.trim())){
+        rNote.dataset.state = "error";
+        rNote.textContent = "That email does not look right. Try again.";
+        email.focus();
+        return;
+      }
+
+      submitBtn.disabled = true;
+      rNote.dataset.state = "ok";
+      rNote.textContent = "Holding your jars.";
+
+      rpc("create_preorder", {
+        p_payload: {
+          full_name: name.value.trim(),
+          email: email.value.trim(),
+          phone: document.getElementById("phone").value.trim(),
+          city: document.getElementById("city").value.trim(),
+          notes: document.getElementById("notes").value.trim(),
+          items: lines.map(function(line){
+            return { scent: line.scent, size: line.size, quantity: line.quantity };
+          })
+        }
+      }).then(function(data){
+        var done = document.createElement("div");
+        done.className = "done";
+        var h = document.createElement("h3");
+        h.textContent = "Held for you.";
+        var ref = document.createElement("span");
+        ref.className = "ref";
+        ref.textContent = data.reference;
+        var p1 = document.createElement("p");
+        p1.textContent = "That is your reference. Keep it somewhere, I will use it when I write to you.";
+        var p2 = document.createElement("p");
+        p2.textContent = lines.reduce(function(n, line){ return n + line.quantity; }, 0)
+          + " jars, indicative total " + cedi(data.total_ghs)
+          + ". Nothing has been charged and nothing is owed until you confirm.";
+        done.appendChild(h);
+        done.appendChild(ref);
+        done.appendChild(p1);
+        done.appendChild(p2);
+        rForm.replaceWith(done);
+        done.setAttribute("tabindex", "-1");
+        done.focus();
+
+        /* the reservation is placed, so the basket stops being editable */
+        placed = true;
+        render();
+        document.getElementById("basket-h").textContent = "Reserved";
+        document.querySelector(".basket-note").textContent =
+          "Held under " + data.reference + ". Write to me if you want to change it.";
+      }).catch(function(err){
+        rNote.dataset.state = "error";
+        rNote.textContent = reason(err);
+        submitBtn.disabled = false;
+      });
+    });
+
+    /* prices live in the database, so refresh them when we are connected */
+    if (connected){
+      fetch(API + "/rest/v1/sizes?select=slug,price_ghs&active=eq.true", {
+        headers: { "apikey": KEY, "Authorization": "Bearer " + KEY }
+      }).then(function(res){ return res.ok ? res.json() : []; }).then(function(rows){
+        (rows || []).forEach(function(row){
+          var input = rForm.querySelector('input[name="size"][value="' + row.slug + '"]');
+          if (input) input.dataset.price = row.price_ghs;
+          var tag = document.querySelector('[data-price-for="' + row.slug + '"]');
+          if (tag) tag.textContent = cedi(parseFloat(row.price_ghs));
+          var strip = document.querySelector('[data-size-strip="' + row.slug + '"] b');
+          if (strip) strip.textContent = cedi(parseFloat(row.price_ghs));
+        });
+        render();
+      }).catch(function(){ /* the page keeps the prices it shipped with */ });
+    }
   }
 
   /* ---- media slots ----
@@ -660,7 +1102,8 @@ footer{padding:44px 0}
     "hero-raw": { src: "assets/hero-raw.jpg", alt: "Raw shea kernels gathered in a woven basket in northern Ghana" },
     "hero-jar": { src: "assets/hero-jar.jpg", alt: "A finished jar of Banini whipped shea butter with a wooden lid" },
     "story":    { src: "assets/story.jpg", video: "assets/story.mp4", alt: "Shea butter being whipped by hand in Tamale" },
-    "product":  { src: "assets/product.jpg", alt: "Banini jars of whipped shea butter photographed on a neutral surface" }
+    "product":  { src: "assets/product.jpg", alt: "Banini jars of whipped shea butter photographed on a neutral surface" },
+    "scents":   { src: "assets/scents.jpg", alt: "The Sunrise, Warm Heritage and Nightfall blends shown in all three jar sizes" }
   };
 
   Object.keys(SLOTS).forEach(function(name){
@@ -674,6 +1117,7 @@ footer{padding:44px 0}
       var cap = host.querySelector("figcaption");
       if (cap) cap.remove();
       host.insertBefore(el, host.firstChild);
+      host.hidden = false;
     };
 
     var tryImage = function(){
