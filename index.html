@@ -91,64 +91,84 @@ section{padding:clamp(72px,10vw,132px) 0}
 @media (max-width:880px){.nav-links{display:none}}
 
 /* ---------- hero ---------- */
-.hero{padding-top:clamp(48px,7vw,86px);padding-bottom:clamp(56px,8vw,104px)}
-.hero-grid{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);gap:clamp(36px,6vw,88px);align-items:center}
-.hero h1{margin-bottom:26px}
-.hero h1 em{color:var(--gold);display:block}
-.hero-cta{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:34px}
+.hero{padding:0}
+
+.hero-copy{
+  position:absolute;left:0;right:0;bottom:0;z-index:4;pointer-events:none;
+  padding-bottom:clamp(30px,5.5vh,64px);
+}
+.hero-copy .eyebrow{color:var(--gold-soft);margin-bottom:16px}
+.hero-copy h1{font-size:clamp(46px,6.6vw,96px);color:var(--cream);margin-bottom:18px;text-shadow:0 2px 30px rgba(27,48,32,.35)}
+.hero-copy h1 em{color:var(--gold-soft);display:block}
+.hero-copy .lede{color:rgba(251,247,236,.86);max-width:46ch}
+.hero-cta{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:26px}
+.hero-cta a{pointer-events:auto}
+.btn-light{background:var(--cream);border-color:var(--cream);color:var(--ink)}
+.btn-light:hover{background:var(--gold-soft);border-color:var(--gold-soft);color:var(--green-deep)}
 .link-ghost{
   font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
   color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:3px;
   transition:color .3s ease,border-color .3s ease;
 }
 .link-ghost:hover{color:var(--gold);border-color:var(--gold)}
+.link-ghost.light{color:rgba(251,247,236,.82);border-color:rgba(251,247,236,.4)}
+.link-ghost.light:hover{color:var(--gold-soft);border-color:var(--gold-soft)}
 
 /* ---------- drag reveal ---------- */
 .reveal-slider{
-  --pos:50%;
-  position:relative;aspect-ratio:4/3.4;overflow:hidden;
-  background:var(--kraft);border:1px solid var(--line);
-  box-shadow:0 26px 60px -30px rgba(42,35,24,.45);
-  touch-action:pan-y;
+  --pos:84%;
+  position:relative;width:100%;height:clamp(430px,64vh,780px);overflow:hidden;
+  background:var(--kraft);touch-action:pan-y;
 }
 .rs-layer{position:absolute;inset:0}
-.rs-layer .media,.rs-layer svg,.rs-layer img{width:100%;height:100%;object-fit:cover;display:block}
+.rs-layer .media,.rs-layer svg,.rs-layer img,.rs-layer video{width:100%;height:100%;object-fit:cover;display:block}
 .rs-left{clip-path:inset(0 calc(100% - var(--pos)) 0 0)}
+.rs-scrim{
+  position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:
+    linear-gradient(90deg,rgba(27,48,32,.80) 0%,rgba(27,48,32,.52) 38%,rgba(27,48,32,.06) 72%,rgba(27,48,32,0) 100%),
+    linear-gradient(0deg,rgba(27,48,32,.62) 0%,rgba(27,48,32,.12) 42%,rgba(27,48,32,0) 70%);
+}
 .rs-divider{
-  position:absolute;top:0;bottom:0;left:var(--pos);width:1px;background:var(--cream);
-  box-shadow:0 0 0 1px rgba(42,35,24,.18);pointer-events:none;
+  position:absolute;top:0;bottom:0;left:var(--pos);width:1px;background:rgba(251,247,236,.85);
+  box-shadow:0 0 18px rgba(27,48,32,.5);pointer-events:none;z-index:3;
 }
 .rs-knob{
-  position:absolute;top:50%;left:var(--pos);width:56px;height:56px;margin:-28px 0 0 -28px;
-  border-radius:50%;background:var(--cream);border:1px solid var(--gold);
+  position:absolute;top:50%;left:var(--pos);width:56px;height:56px;margin:-28px 0 0 -28px;z-index:3;
+  border-radius:50%;background:rgba(251,247,236,.94);border:1px solid var(--gold-soft);
   display:flex;align-items:center;justify-content:center;gap:5px;pointer-events:none;
-  box-shadow:0 8px 22px -10px rgba(42,35,24,.6);
+  box-shadow:0 8px 26px -8px rgba(27,48,32,.7);
 }
 .rs-knob i{width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent}
 .rs-knob i:first-child{border-right:7px solid var(--green)}
 .rs-knob i:last-child{border-left:7px solid var(--green)}
 .rs-range{
-  position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;
+  position:absolute;inset:0;width:100%;height:100%;margin:0;z-index:3;opacity:0;
   cursor:ew-resize;-webkit-appearance:none;appearance:none;background:transparent;
 }
-.rs-range::-webkit-slider-thumb{-webkit-appearance:none;width:64px;height:400px;cursor:ew-resize}
-.rs-range::-moz-range-thumb{width:64px;height:400px;border:0;cursor:ew-resize}
+.rs-range::-webkit-slider-thumb{-webkit-appearance:none;width:64px;height:600px;cursor:ew-resize}
+.rs-range::-moz-range-thumb{width:64px;height:600px;border:0;cursor:ew-resize}
 .rs-range:focus-visible{outline:none}
-.rs-range:focus-visible ~ .rs-knob{outline:2px solid var(--gold);outline-offset:4px}
+.rs-range:focus-visible ~ .rs-knob{outline:2px solid var(--gold-soft);outline-offset:4px}
 .rs-tag{
-  position:absolute;top:18px;font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
-  background:rgba(251,247,236,.86);color:var(--ink);padding:7px 12px;border:1px solid var(--line-soft);pointer-events:none;
+  position:absolute;top:20px;z-index:3;font-family:var(--mono);font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--cream);background:rgba(27,48,32,.42);
+  border:1px solid rgba(251,247,236,.28);padding:7px 12px;pointer-events:none;
+  backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);
 }
-.rs-tag.left{left:18px}
-.rs-tag.right{right:18px}
+.rs-tag.left{left:var(--gutter)}
+.rs-tag.right{right:var(--gutter)}
 .rs-hint{
+  position:absolute;right:var(--gutter);bottom:clamp(30px,5.5vh,64px);z-index:4;
   font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--ink-soft);margin-top:14px;display:flex;align-items:center;gap:9px;
+  color:rgba(251,247,236,.72);display:flex;align-items:center;gap:9px;pointer-events:none;margin:0;
 }
-.rs-hint::before{content:"";width:26px;height:1px;background:var(--gold)}
+.rs-hint::before{content:"";width:26px;height:1px;background:var(--gold-soft)}
 @media (max-width:880px){
-  .hero-grid{grid-template-columns:1fr}
-  .reveal-slider{aspect-ratio:4/3.9}
+  .reveal-slider{height:clamp(520px,80vh,760px)}
+  .hero-copy .lede{font-size:17px}
+  .rs-hint{display:none}
+  .rs-tag{top:16px;font-size:9px;letter-spacing:.12em;padding:6px 9px}
 }
 
 /* ---------- stats ---------- */
@@ -315,7 +335,7 @@ legend{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transfor
 @media (max-width:880px){.field-grid{grid-template-columns:1fr}}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 
-.media-frame.wide{aspect-ratio:16/7;margin-top:clamp(48px,6vw,72px)}
+.media-frame.wide{aspect-ratio:auto;max-width:820px;margin:clamp(48px,6vw,72px) auto 0}
 .basket{border:1px solid var(--line);background:var(--kraft);padding:clamp(22px,3vw,32px);position:sticky;top:96px}
 .basket h3{margin-bottom:18px}
 .basket-empty{font-size:15.5px;color:var(--ink-soft);margin:0}
@@ -378,21 +398,9 @@ legend{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transfor
 
 <main id="main">
 <section class="hero" id="top">
-  <div class="shell hero-grid">
-    <div>
-      <span class="eyebrow r">Make Ghana Go Global — Est. 2026</span>
-      <h1 class="r d1">Raw to <em>Refined.</em></h1>
-      <p class="lede r d2">Whipped shea butter, hand-churned from nuts gathered on the northern savannah, refined into something Ghana hasn't quite offered the world before.</p>
-      <div class="hero-cta r d3">
-        <a class="btn" href="#reserve">Reserve a jar</a>
-        <a class="link-ghost" href="#story">Read the story</a>
-      </div>
-    </div>
-
-    <div class="r d2">
-      <div class="reveal-slider" id="rawRefined">
-        <div class="rs-layer" data-slot="hero-jar">
-          <svg class="media" viewBox="0 0 800 680" role="img" aria-label="Illustration of a sealed Banini jar of whipped shea butter with a wooden lid and a kraft paper tag">
+  <div class="reveal-slider" id="rawRefined">
+    <div class="rs-layer" data-slot="hero-jar">
+      <svg class="media" viewBox="0 0 800 680" role="img" aria-label="Illustration of a sealed Banini jar of whipped shea butter with a wooden lid and a kraft paper tag">
             <rect width="800" height="680" fill="#E7DAC0"/>
             <g fill="none" stroke="#2B4A32" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
               <path d="M462 258h236v290a32 32 0 0 1-32 32H494a32 32 0 0 1-32-32z"/>
@@ -413,10 +421,10 @@ legend{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transfor
               <path d="M580 524c22-10 34-28 34-48-22 2-38 16-42 38"/>
             </g>
           </svg>
-        </div>
+    </div>
 
-        <div class="rs-layer rs-left" id="rsLeft" data-slot="hero-raw">
-          <svg class="media" viewBox="0 0 800 680" role="img" aria-label="Illustration of raw shea kernels gathered in a woven basket">
+    <div class="rs-layer rs-left" id="rsLeft" data-slot="hero-raw">
+      <svg class="media" viewBox="0 0 800 680" role="img" aria-label="Illustration of raw shea kernels gathered in a woven basket">
             <rect width="800" height="680" fill="#DACAA6"/>
             <g fill="none" stroke="#2B4A32" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
               <ellipse cx="176" cy="304" rx="72" ry="56"/>
@@ -437,16 +445,27 @@ legend{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transfor
               <path d="M356 236c8 24 4 46-10 60-14-18-14-40 0-56" opacity=".8"/>
             </g>
           </svg>
-        </div>
+    </div>
 
-        <div class="rs-divider" aria-hidden="true"></div>
-        <input class="rs-range" id="rsRange" type="range" min="0" max="100" step="0.1" value="50"
-               aria-label="Drag to reveal raw shea kernels on the left or whipped Banini butter on the right">
-        <div class="rs-knob" aria-hidden="true"><i></i><i></i></div>
-        <span class="rs-tag left">Raw / Kernel</span>
-        <span class="rs-tag right">Refined / Whipped</span>
+    <div class="rs-scrim" aria-hidden="true"></div>
+    <div class="rs-divider" aria-hidden="true"></div>
+    <input class="rs-range" id="rsRange" type="range" min="0" max="100" step="0.1" value="84"
+           aria-label="Drag to reveal raw shea kernels on the left or whipped Banini butter on the right">
+    <div class="rs-knob" aria-hidden="true"><i></i><i></i></div>
+    <span class="rs-tag left">Raw / Kernel</span>
+    <span class="rs-tag right">Refined / Whipped</span>
+    <span class="rs-hint">Scroll, or drag the handle</span>
+
+    <div class="hero-copy">
+      <div class="shell">
+        <span class="eyebrow">Make Ghana Go Global &#8212; Est. 2026</span>
+        <h1>Raw to <em>Refined.</em></h1>
+        <p class="lede">Whipped shea butter, hand-churned from nuts gathered on the northern savannah, refined into something Ghana hasn't quite offered the world before.</p>
+        <div class="hero-cta">
+          <a class="btn btn-light" href="#reserve">Reserve a jar</a>
+          <a class="link-ghost light" href="#story">Read the story</a>
+        </div>
       </div>
-      <p class="rs-hint">Drag the handle</p>
     </div>
   </div>
 </section>
@@ -804,11 +823,46 @@ legend{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transfor
   var range = document.getElementById("rsRange");
   if (slider && range){
     var paint = function(){ slider.style.setProperty("--pos", range.value + "%"); };
+
+    /* The scroll drives the wipe until somebody takes hold of it themselves.
+       After that the scroll leaves it alone: pulling the divider out from under
+       a hand that is holding it would be rude. */
+    var RAW = 84, REFINED = 12;
+    var manual = false;
+    var queued = false;
+
+    var takeOver = function(){ manual = true; };
+    range.addEventListener("pointerdown", takeOver);
+    range.addEventListener("touchstart", takeOver, { passive: true });
+
+    var fromScroll = function(){
+      queued = false;
+      if (manual) return;
+      var rect = slider.getBoundingClientRect();
+      var travel = rect.height || 1;
+      /* the wipe finishes once the hero is 45% gone, so the refined jar is
+         still well in view rather than completing off the top of the screen */
+      var progress = Math.min(1, Math.max(0, (-rect.top / travel) / 0.45));
+      range.value = RAW + (REFINED - RAW) * progress;
+      paint();
+    };
+
+    if (!reduce){
+      window.addEventListener("scroll", function(){
+        if (!queued){ queued = true; requestAnimationFrame(fromScroll); }
+      }, { passive: true });
+      window.addEventListener("resize", fromScroll, { passive: true });
+      fromScroll();
+    } else {
+      range.value = 50;      /* no scroll-linked movement, just a draggable halfway split */
+    }
+
     range.addEventListener("input", paint);
     /* arrow keys move in useful 4% steps, the drag itself stays smooth */
     range.addEventListener("keydown", function(ev){
       var step = 0;
       if (ev.key === "ArrowLeft" || ev.key === "ArrowDown") step = -4;
+      if (["ArrowLeft","ArrowRight","ArrowUp","ArrowDown","Home","End"].indexOf(ev.key) > -1) manual = true;
       if (ev.key === "ArrowRight" || ev.key === "ArrowUp") step = 4;
       if (ev.key === "Home") { range.value = 0; paint(); ev.preventDefault(); return; }
       if (ev.key === "End") { range.value = 100; paint(); ev.preventDefault(); return; }
@@ -1099,9 +1153,9 @@ legend{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transfor
      assets/hero-raw.jpg, assets/hero-jar.jpg, assets/story.jpg, assets/product.jpg, assets/texture.jpg
      A .mp4 named assets/story.mp4 takes priority in the story slot. */
   var SLOTS = {
-    "hero-raw": { src: "assets/hero-raw.jpg", alt: "Raw shea kernels gathered in a woven basket in northern Ghana" },
-    "hero-jar": { src: "assets/hero-jar.jpg", alt: "A finished jar of Banini whipped shea butter with a wooden lid" },
-    "story":    { src: "assets/story.jpg", video: "assets/story.mp4", alt: "Shea butter being whipped by hand in Tamale" },
+    "hero-raw": { src: "assets/hero-raw.jpg", alt: "Raw shea nuts, some split open to show the kernel, gathered in a woven basket" },
+    "hero-jar": { src: "assets/hero-jar.jpg", video: "assets/story.mp4", alt: "Banini whipped shea butter in its 50ml, 300ml and 600ml jars on a wooden table" },
+    "story":    { src: "assets/story.jpg", alt: "Shea butter being whipped by hand in Tamale" },
     "product":  { src: "assets/product.jpg", alt: "Banini jars of whipped shea butter photographed on a neutral surface" },
     "scents":   { src: "assets/scents.jpg", alt: "The Sunrise, Warm Heritage and Nightfall blends shown in all three jar sizes" }
   };
@@ -1129,6 +1183,11 @@ legend{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transfor
         img.loading = "lazy";
         img.decoding = "async";
         img.className = "media";
+        /* framed slots take the photograph's own shape, so nothing is cropped off.
+           The hero is full bleed and keeps its crop. */
+        if (host.classList.contains("media-frame") && probe.naturalWidth && probe.naturalHeight){
+          host.style.aspectRatio = probe.naturalWidth + " / " + probe.naturalHeight;
+        }
         swap(img);
       };
       probe.src = cfg.src;
@@ -1151,6 +1210,12 @@ legend{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transfor
         var poster = new Image();
         poster.onload = function(){ v.poster = cfg.src; };
         poster.src = cfg.src;
+
+        /* a browser that cannot decode the clip gets the still instead of a dead frame */
+        v.addEventListener("error", function(){
+          if (v.parentNode) v.parentNode.removeChild(v);
+          tryImage();
+        });
 
         /* the file downloads only once the section is nearly in view */
         var load = function(){
