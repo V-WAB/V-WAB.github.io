@@ -85,6 +85,63 @@ it in both places.
 - **Rate limiting is light.** One email address can place five reservations an hour. There is a honeypot field on the form against basic bots. Supabase's own protections sit in front of everything.
 - **No payments.** Reservations are unpaid by design. Taking money later means Paystack for cards and Ghana mobile money.
 
+## Emails
+
+`migrations/20260825000004_email_notifications.sql` sends you an email on every
+reservation and every waitlist sign-up, and sends the customer a confirmation
+once you have a sending domain. It uses Resend, called straight from a database
+trigger through `pg_net`, so there is no edge function to deploy.
+
+Setting it up:
+
+1. Sign up at resend.com and create an API key. The free tier is 3,000 emails a month.
+2. Run the migration file in the SQL Editor.
+3. Tell it who to write to, and give it the key:
+
+```sql
+update public.app_config set value = 'you@example.com' where key = 'owner_email';
+insert into public.app_config (key, value) values ('resend_api_key', 're_your_key_here')
+  on conflict (key) do update set value = excluded.value;
+```
+
+4. Check it works, without placing a reservation:
+
+```sql
+select public.send_test_email();
+```
+
+**Until you own a domain, Resend will only deliver to the address you signed up
+with.** So `owner_email` must be that address, and customers get nothing. Once
+you verify a domain in Resend, add it and customer confirmations start:
+
+```sql
+insert into public.app_config (key, value)
+values ('from_email', 'Banini Butter <hello@yourdomain.com>')
+  on conflict (key) do update set value = excluded.value;
+```
+
+### When an email does not arrive
+
+Every attempt is recorded, including the ones that never left:
+
+```sql
+select created_at, kind, recipient, reference, note from public.email_log order by id desc limit 20;
+```
+
+`queued` means it went to Resend; the delivery itself is then visible in the
+Resend dashboard. Anything else says what stopped it.
+
+A broken email setup can never block an order. The sending happens after the
+reservation is written, failures are caught and logged, and a reservation still
+returns its reference with the email machinery entirely removed. That is tested,
+not assumed.
+
+### Where the key lives
+
+In `public.app_config`, which has row level security on, no policies, and no
+grants to `anon`. The browser cannot read it. Only the dashboard and the
+`SECURITY DEFINER` functions can.
+
 ## If you see "No function matches the given name and argument types"
 
 Two separate causes wore this same message.
