@@ -85,6 +85,14 @@ it in both places.
 - **Rate limiting is light.** One email address can place five reservations an hour. There is a honeypot field on the form against basic bots. Supabase's own protections sit in front of everything.
 - **No payments.** Reservations are unpaid by design. Taking money later means Paystack for cards and Ghana mobile money.
 
+## If you see "No function matches the given name and argument types"
+
+PostgREST hands a nested JSON object to a function as `json`, and Postgres has
+no implicit cast from `json` to `jsonb`, so a `create_preorder(jsonb)` never
+matches the call. The migration now declares the parameter as `json` and casts
+once inside the function. Re-run the whole migration file to pick this up: it
+drops the old signature first, and nothing else in it is destructive.
+
 ## Testing changes to the SQL
 
 The migration was developed against a local Postgres 16, which is the quickest
