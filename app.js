@@ -372,7 +372,8 @@
         img.className = "media";
         /* framed slots take the photograph's own shape, so nothing is cropped off.
            The hero is full bleed and keeps its crop. */
-        if (host.classList.contains("media-frame") && probe.naturalWidth && probe.naturalHeight){
+        if (host.classList.contains("media-frame") && !host.hasAttribute("data-fixed-ratio")
+            && probe.naturalWidth && probe.naturalHeight){
           host.style.aspectRatio = probe.naturalWidth + " / " + probe.naturalHeight;
         }
         swap(img);
