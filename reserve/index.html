@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en-GB" data-base="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Reserve a jar &#183; Banini Butter</title>
+<meta name="description" content="Reserve Banini whipped shea butter before the first run. Choose your blend and size. Nothing is charged today.">
+<meta name="theme-color" content="#2B4A32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=DM+Mono:wght@400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav">
+  <div class="shell nav-in">
+    <a class="wordmark" href="../">Banini<span>.</span></a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="../#story">Story</a></li>
+        <li><a href="../#standing">Standing</a></li>
+        <li><a href="../#jar">The Jar</a></li>
+        <li><a href="../#scents">Scents</a></li>
+        <li><a href="../#voices">Voices</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn-sm" href="#waitlist">Join waitlist</a>
+  </div>
+</header>
+
+<main id="main">
+<section class="page-header" data-slot="reserve-header" aria-labelledby="ph-h">
+  <div class="ph-scrim" aria-hidden="true"></div>
+  <div class="ph-copy">
+    <div class="shell">
+      <span class="eyebrow">The first run</span>
+      <h1 id="ph-h">Reserve a <em>jar.</em></h1>
+      <p class="lede">Small batches, whipped to order in Tamale. Tell me what you want and I will hold it for you.</p>
+    </div>
+  </div>
+</section>
+
+<section id="reserve" aria-labelledby="reserve-h">
+  <div class="shell">
+    <span class="eyebrow r">Reserve</span>
+    <h2 id="reserve-h" class="r d1">Pick your jars, we will <em>hold them.</em></h2>
+    <p class="lede r d2">Reservations are free and nothing is charged today. Tell me which blends and sizes you want and I will write to you with the total and the delivery options once the first run is whipped.</p>
+
+    <div class="reserve-grid">
+      <form id="reserveForm" class="r" novalidate>
+        <fieldset>
+          <legend>01 / Choose a blend</legend>
+          <div class="opt-row" id="scentOptions">
+            <label class="opt"><input type="radio" name="scent" value="sunrise" checked><span class="opt-name">Sunrise</span><span class="opt-note">Lemongrass and sweet orange</span></label>
+            <label class="opt"><input type="radio" name="scent" value="warm-heritage"><span class="opt-name">Warm Heritage</span><span class="opt-note">Raw cocoa and benzoin</span></label>
+            <label class="opt"><input type="radio" name="scent" value="nightfall"><span class="opt-name">Nightfall</span><span class="opt-note">Lavender and frankincense</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>02 / Choose a size</legend>
+          <div class="opt-row" id="sizeOptions">
+            <label class="opt"><input type="radio" name="size" value="50ml" data-price="60"><span class="opt-name">50ml</span><span class="opt-price" data-price-for="50ml">&#8373;60</span></label>
+            <label class="opt"><input type="radio" name="size" value="300ml" data-price="200" checked><span class="opt-name">300ml</span><span class="opt-price" data-price-for="300ml">&#8373;200</span></label>
+            <label class="opt"><input type="radio" name="size" value="600ml" data-price="360"><span class="opt-name">600ml</span><span class="opt-price" data-price-for="600ml">&#8373;360</span></label>
+          </div>
+          <div class="qty-row" style="margin-top:20px">
+            <div class="field narrow">
+              <label for="qty">Jars</label>
+              <input type="number" id="qty" name="qty" min="1" max="12" step="1" value="1" inputmode="numeric">
+            </div>
+            <button type="button" class="btn btn-ghost" id="addLine">Add to reservation</button>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>03 / Where it goes</legend>
+          <div class="field-grid">
+            <div class="field">
+              <label for="fullName">Name</label>
+              <input type="text" id="fullName" name="fullName" autocomplete="name" maxlength="120" required>
+            </div>
+            <div class="field">
+              <label for="orderEmail">Email</label>
+              <input type="email" id="orderEmail" name="orderEmail" autocomplete="email" maxlength="254" required>
+            </div>
+            <div class="field">
+              <label for="phone">Phone, optional</label>
+              <input type="tel" id="phone" name="phone" autocomplete="tel" maxlength="40">
+            </div>
+            <div class="field">
+              <label for="city">Town or city, optional</label>
+              <input type="text" id="city" name="city" autocomplete="address-level2" maxlength="120">
+            </div>
+          </div>
+          <div class="field" style="margin-top:18px">
+            <label for="notes">Anything I should know, optional</label>
+            <textarea id="notes" name="notes" maxlength="1000" rows="3"></textarea>
+          </div>
+          <div class="hp" aria-hidden="true">
+            <label for="company">Company</label>
+            <input type="text" id="company" name="company" tabindex="-1" autocomplete="off">
+          </div>
+        </fieldset>
+
+        <div class="reserve-actions">
+          <button class="btn" type="submit" id="reserveSubmit">Place reservation</button>
+          <span class="fineprint">No card, no charge, no obligation.</span>
+        </div>
+        <p class="form-note" id="reserveNote" role="status" aria-live="polite"></p>
+      </form>
+
+      <aside class="basket r d1" aria-labelledby="basket-h">
+        <h3 id="basket-h">Your reservation</h3>
+        <p class="basket-empty" id="basketEmpty">Nothing held yet. Choose a blend and a size, then add it here.</p>
+        <ul class="lines" id="lines"></ul>
+        <div class="basket-total" hidden id="basketTotal">
+          <span class="mono">Indicative total</span>
+          <b><span id="totalValue">&#8373;0</span></b>
+        </div>
+        <p class="basket-note">Prices are what our testers named for a 300ml jar, scaled for the other two sizes. I will confirm the final total and delivery before anything is paid.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="waitlist" id="waitlist" aria-labelledby="waitlist-h">
+  <div class="shell waitlist-in">
+    <span class="eyebrow r">Waitlist</span>
+    <h2 id="waitlist-h" class="r d1">Be first to whip open <em>a jar.</em></h2>
+    <p class="lede r d2">The first run is small and it goes to this list before it goes anywhere else. Leave your email and I will write to you when the jars are ready to ship.</p>
+    <form class="signup r d2" id="signup" novalidate>
+      <label class="sr-only" for="email">Email address</label>
+      <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required>
+      <button class="btn" type="submit">Reserve a jar</button>
+    </form>
+    <p class="form-note" id="formNote" role="status" aria-live="polite"></p>
+    <p class="fineprint r">One note when we launch. No spam, no lists sold, unsubscribe in a click.</p>
+  </div>
+</section>
+</main>
+</main>
+
+<footer>
+  <div class="shell foot-in">
+    <a class="wordmark" href="../">Banini<span>.</span></a>
+    <p class="fineprint">Tamale &#183; Accra, Ghana</p>
+  </div>
+</footer>
+
+<script src="../config.js" defer></script>
+<script src="../app.js" defer></script>
+</body>
+</html>
