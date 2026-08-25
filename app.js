@@ -343,7 +343,9 @@
     "hero-jar": { src: BASE + "assets/hero-jar.jpg", video: BASE + "assets/story.mp4", alt: "Banini whipped shea butter in its 50ml, 300ml and 600ml jars on a wooden table" },
     "story":    { src: BASE + "assets/story.jpg", alt: "Shea butter being whipped by hand in Tamale" },
     "product":  { src: BASE + "assets/product.jpg", alt: "Banini jars of whipped shea butter photographed on a neutral surface" },
-    "scents":   { src: BASE + "assets/scents.jpg", alt: "The Sunrise, Warm Heritage and Nightfall blends shown in all three jar sizes" },
+    "blend-sunrise":       { src: BASE + "assets/blend-sunrise.jpg",       alt: "The Sunrise blend in 50ml, 300ml and 600ml jars, tagged with lemon and sweet orange" },
+    "blend-warm-heritage": { src: BASE + "assets/blend-warm-heritage.jpg", alt: "The Warm Heritage blend in 50ml, 300ml and 600ml jars, tagged with cocoa" },
+    "blend-nightfall":     { src: BASE + "assets/blend-nightfall.jpg",     alt: "The Nightfall blend in 50ml, 300ml and 600ml jars, tagged with lavender" },
     "reserve-header": { src: BASE + "assets/hero-jar.jpg", alt: "Banini whipped shea butter in its three jar sizes on a wooden table" }
   };
 
