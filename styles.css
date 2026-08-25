@@ -59,9 +59,9 @@ section{padding:clamp(72px,10vw,132px) 0}
 }
 .nav-in{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-top:16px;padding-bottom:16px}
 .wordmark{font-family:var(--display);font-size:26px;letter-spacing:.09em;text-decoration:none;line-height:1;display:inline-flex;align-items:center}
-.wordmark-img{height:34px;width:auto;display:block}
-.foot-in .wordmark-img{height:28px}
-@media (max-width:880px){.wordmark-img{height:28px}}
+.wordmark-img{height:48px;width:auto;display:block}
+.foot-in .wordmark-img{height:40px}
+@media (max-width:880px){.wordmark-img{height:38px}}
 .wordmark span{color:var(--gold)}
 .nav-links{display:flex;gap:30px;list-style:none;margin:0;padding:0}
 .nav-links a{
