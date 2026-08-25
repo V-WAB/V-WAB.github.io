@@ -838,10 +838,10 @@ legend{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transfor
   var API = String(cfg.supabaseUrl || "").replace(/\/+$/, "");
   var KEY = String(cfg.supabaseAnonKey || "");
   var connected = Boolean(API && KEY);
-  var NOT_CONNECTED = "The ordering system is not connected yet. Add your Supabase details to config.js.";
+  var NOT_CONNECTED = "The book is not open yet. Please try again shortly.";
 
   if (!connected) {
-    console.warn("Banini: supabaseUrl and supabaseAnonKey are empty in config.js, so the forms cannot submit.");
+    console.warn("Banini: supabaseUrl and supabaseAnonKey are empty in config.js, so the waitlist and reservation forms cannot submit. See supabase/README.md.");
   }
 
   var rpc = function(fn, body){
