@@ -11,6 +11,6 @@
    Find these two under Project Settings, API, in your Supabase project. */
 
 window.BANINI_CONFIG = {
-  supabaseUrl: "",      // e.g. "https://abcdefghijklmnop.supabase.co"
-  supabaseAnonKey: ""   // the "anon public" key
+  supabaseUrl: "https://qjwbslwawzhejbjeufkv.supabase.co",
+  supabaseAnonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFqd2JzbHdhd3poZWpiamV1Zmt2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc2NjgzNDEsImV4cCI6MjEwMzI0NDM0MX0.bwnkU9iM98uyhtQX91I0qf24q68shB-DteRWDhXCMdk"
 };
