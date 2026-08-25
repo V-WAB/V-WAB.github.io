@@ -113,6 +113,49 @@
     return "\u20B5" + text.replace(/\B(?=(\d{3})+(?!\d))/, ",");
   };
 
+  /* ---- diagnostics ----
+     Visit any page with ?debug=1 to see what the browser actually loaded and
+     whether it can reach Supabase. Nothing renders without that flag. */
+  if (/[?&]debug=1/.test(location.search)){
+    var panel = document.createElement("div");
+    panel.setAttribute("style", [
+      "position:fixed", "left:12px", "right:12px", "bottom:12px", "z-index:9999",
+      "background:#1B3020", "color:#FBF7EC", "padding:14px 16px",
+      "font:12px/1.6 ui-monospace,Menlo,Consolas,monospace",
+      "white-space:pre-wrap", "border:1px solid #B8923F", "max-height:60vh", "overflow:auto"
+    ].join(";"));
+    var say = function(line){ panel.textContent += line + "\n"; };
+    document.addEventListener("DOMContentLoaded", function(){ document.body.appendChild(panel); });
+    if (document.readyState !== "loading") document.body.appendChild(panel);
+
+    var scriptTag = document.querySelector('script[src*="app.js"]');
+    say("page url      : " + location.href);
+    say("app.js src    : " + (scriptTag ? scriptTag.getAttribute("src") : "not found"));
+    say("config object : " + (window.BANINI_CONFIG ? "present" : "MISSING, config.js did not load"));
+    say("supabase url  : " + (API || "EMPTY"));
+    say("anon key      : " + (KEY ? KEY.slice(0, 12) + "... (" + KEY.length + " chars)" : "EMPTY"));
+    say("connected     : " + connected);
+
+    if (connected){
+      say("");
+      say("calling the catalogue...");
+      fetch(API + "/rest/v1/sizes?select=slug,price_ghs&order=sort", {
+        headers: { "apikey": KEY, "Authorization": "Bearer " + KEY }
+      }).then(function(res){
+        return res.text().then(function(body){
+          say("HTTP " + res.status + " " + res.statusText);
+          say(body.slice(0, 400));
+          if (res.status === 401) say(">> the key is wrong, or does not belong to this project");
+          if (res.status === 404) say(">> the table is missing, the migration did not run here");
+          if (res.ok) say(">> catalogue reachable, the database is wired up correctly");
+        });
+      }).catch(function(err){
+        say("request failed: " + err.message);
+        say(">> usually a network block, a proxy, or the project being paused");
+      });
+    }
+  }
+
   /* ---- waitlist ---- */
   var form = document.getElementById("signup");
   var note = document.getElementById("formNote");
