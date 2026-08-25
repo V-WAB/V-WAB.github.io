@@ -1137,13 +1137,48 @@ legend{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transfor
     if (cfg.video){
       fetch(cfg.video, { method: "HEAD" }).then(function(res){
         if (!res.ok) throw new Error("no video");
+
         var v = document.createElement("video");
-        v.src = cfg.video;
         v.className = "media";
-        v.muted = true; v.loop = true; v.playsInline = true; v.autoplay = !reduce;
+        v.muted = true;
+        v.loop = true;
+        v.playsInline = true;
         v.setAttribute("preload", "none");
         v.setAttribute("aria-label", cfg.alt);
         if (reduce) v.controls = true;
+
+        /* the still, if there is one, fills the frame before any frame arrives */
+        var poster = new Image();
+        poster.onload = function(){ v.poster = cfg.src; };
+        poster.src = cfg.src;
+
+        /* the file downloads only once the section is nearly in view */
+        var load = function(){
+          if (v.getAttribute("src")) return;
+          v.setAttribute("src", cfg.video);
+          if (reduce) return;
+          var playing = v.play();
+          if (playing && playing.catch) playing.catch(function(){ v.controls = true; });
+        };
+
+        if (!("IntersectionObserver" in window)){
+          load();
+        } else {
+          new IntersectionObserver(function(entries){
+            entries.forEach(function(e){
+              if (e.isIntersecting){
+                load();
+                if (!reduce && v.paused){
+                  var again = v.play();
+                  if (again && again.catch) again.catch(function(){ v.controls = true; });
+                }
+              } else if (!v.paused){
+                v.pause();          /* nothing plays off screen */
+              }
+            });
+          }, { rootMargin: "200px 0px" }).observe(v);
+        }
+
         swap(v);
       }).catch(tryImage);
     } else {
