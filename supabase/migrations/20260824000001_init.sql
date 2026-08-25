@@ -109,7 +109,7 @@ create or replace function public.join_waitlist(p_email text, p_source text defa
 returns json
 language plpgsql
 security definer
-set search_path = public
+set search_path = public, extensions
 as $$
 declare
   v_email citext;
@@ -139,7 +139,7 @@ create or replace function public.create_preorder(p_payload json)
 returns json
 language plpgsql
 security definer
-set search_path = public
+set search_path = public, extensions
 as $$
 declare
   /* PostgREST passes a nested object as json, so take one cast up front */
@@ -193,7 +193,7 @@ begin
     raise exception 'rate_limited' using hint = 'That is a lot of reservations in one hour. Write to us instead.';
   end if;
 
-  v_ref := 'BB-' || upper(encode(gen_random_bytes(4), 'hex'));
+  v_ref := 'BB-' || upper(substr(replace(gen_random_uuid()::text, '-', ''), 1, 8));
 
   insert into public.preorders (reference, full_name, email, phone, city, notes)
   values (v_ref, v_name, v_email, v_phone, v_city, v_notes)

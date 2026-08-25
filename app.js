@@ -181,30 +181,6 @@
         });
       }).catch(function(err){ say("create_preorder request failed: " + err.message); });
 
-      /* ask PostgREST what it believes the function looks like, which settles
-         whether the patch landed in the project this key points at */
-      say("");
-      say("asking the API what create_preorder looks like...");
-      fetch(API + "/rest/v1/", { headers: { "apikey": KEY, "Authorization": "Bearer " + KEY } })
-        .then(function(res){ return res.json(); })
-        .then(function(spec){
-          var ref = JSON.parse(atob(KEY.split(".")[1])).ref;
-          say("project ref in the key: " + ref);
-          var path = spec.paths && spec.paths["/rpc/create_preorder"];
-          if (!path){
-            say(">> this project has no create_preorder at all");
-            var rpcs = Object.keys(spec.paths || {}).filter(function(k){ return k.indexOf("/rpc/") === 0; });
-            say("   functions it does have: " + (rpcs.join(", ") || "none"));
-            return;
-          }
-          var params = path.post && path.post.parameters;
-          var body = params && params.filter(function(x){ return x.in === "body"; })[0];
-          var props = body && body.schema && body.schema.properties;
-          say("arguments the API expects: " + JSON.stringify(props));
-          if (props && props.p_payload && props.p_payload.format)
-            say(">> p_payload is declared as " + props.p_payload.format);
-        })
-        .catch(function(err){ say("spec request failed: " + err.message); });
     }
   }
 

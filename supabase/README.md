@@ -87,6 +87,18 @@ it in both places.
 
 ## If you see "No function matches the given name and argument types"
 
+Two separate causes wore this same message.
+
+Supabase keeps pgcrypto in a schema called `extensions`, while these functions
+pinned their search path to `public` alone, so `gen_random_bytes`, used to make
+the BB- reference, was invisible to them. The reference now uses
+`gen_random_uuid`, which is core Postgres and needs no extension at all, and
+both functions carry `extensions` on their search path. Note that the error a
+caller sees is the *hint* attached to "function gen_random_bytes(integer) does
+not exist", which reads like a signature problem and is not one.
+
+The other cause:
+
 PostgREST hands a nested JSON object to a function as `json`, and Postgres has
 no implicit cast from `json` to `jsonb`, so a `create_preorder(jsonb)` never
 matches the call. The migration now declares the parameter as `json` and casts
