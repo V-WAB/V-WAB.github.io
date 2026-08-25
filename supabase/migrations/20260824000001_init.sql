@@ -166,7 +166,10 @@ begin
   if v_email !~ '^[^@[:space:]]+@[^@[:space:]]+\.[a-z]{2,}$' or length(v_email) > 254 then
     raise exception 'invalid_email' using hint = 'That email does not look right.';
   end if;
-  if v_phone is not null and length(v_phone) > 40 then
+  if v_phone is null or length(regexp_replace(v_phone, '\D', '', 'g')) < 7 then
+    raise exception 'invalid_phone' using hint = 'Please give a phone number we can reach you on.';
+  end if;
+  if length(v_phone) > 40 then
     raise exception 'invalid_phone' using hint = 'That phone number is too long.';
   end if;
   if v_city is not null and length(v_city) > 120 then

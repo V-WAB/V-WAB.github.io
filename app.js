@@ -95,9 +95,17 @@
       return res.text().then(function(text){
         var data = null;
         try { data = text ? JSON.parse(text) : null; } catch (e) { data = null; }
-        if (!res.ok) throw (data || { hint: "Something went wrong at our end. Please try again in a moment." });
+        if (!res.ok){
+          console.error("Banini: " + fn + " returned " + res.status, text);
+          throw (data || { hint: "Something went wrong at our end. Please try again in a moment." });
+        }
         return data;
       });
+    }).catch(function(err){
+      /* a failed fetch is a network problem, not something to read out loud */
+      if (err && (err.hint || err.message === undefined)) throw err;
+      console.error("Banini: " + fn + " could not be reached", err);
+      throw { hint: "I could not reach the ordering system. Check your connection and try again." };
     });
   };
 
@@ -153,6 +161,25 @@
         say("request failed: " + err.message);
         say(">> usually a network block, a proxy, or the project being paused");
       });
+
+      /* deliberately invalid, so it proves the function resolves without
+         writing a row: no items means the function raises before inserting */
+      say("");
+      say("calling create_preorder...");
+      fetch(API + "/rest/v1/rpc/create_preorder", {
+        method: "POST",
+        headers: { "apikey": KEY, "Authorization": "Bearer " + KEY, "Content-Type": "application/json" },
+        body: JSON.stringify({ p_payload: { full_name: "Debug Probe", email: "debug@example.com", phone: "0000000", items: [] } })
+      }).then(function(res){
+        return res.text().then(function(body){
+          say("HTTP " + res.status + " " + res.statusText);
+          say(body.slice(0, 400));
+          if (body.indexOf("no_items") > -1) say(">> the function resolves and validates, the reservation path is sound");
+          if (body.indexOf("No function matches") > -1) say(">> old signature still in the database, re-run the migration");
+          if (body.indexOf("schema cache") > -1) say(">> PostgREST is holding a stale schema, run: notify pgrst, 'reload schema';");
+          if (res.status === 404) say(">> the function is missing from this project entirely");
+        });
+      }).catch(function(err){ say("create_preorder request failed: " + err.message); });
     }
   }
 
@@ -303,6 +330,13 @@
         rNote.dataset.state = "error";
         rNote.textContent = "That email does not look right. Try again.";
         email.focus();
+        return;
+      }
+      var phone = document.getElementById("phone");
+      if (phone.value.replace(/\D/g, "").length < 7){
+        rNote.dataset.state = "error";
+        rNote.textContent = "Please give a phone number we can reach you on.";
+        phone.focus();
         return;
       }
 
