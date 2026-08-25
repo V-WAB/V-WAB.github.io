@@ -133,19 +133,23 @@ begin
 end;
 $$;
 
-create or replace function public.create_preorder(p_payload jsonb)
+drop function if exists public.create_preorder(jsonb);
+
+create or replace function public.create_preorder(p_payload json)
 returns json
 language plpgsql
 security definer
 set search_path = public
 as $$
 declare
-  v_name      text := btrim(coalesce(p_payload->>'full_name', ''));
-  v_email     citext := lower(btrim(coalesce(p_payload->>'email', '')));
-  v_phone     text := nullif(btrim(coalesce(p_payload->>'phone', '')), '');
-  v_city      text := nullif(btrim(coalesce(p_payload->>'city', '')), '');
-  v_notes     text := nullif(btrim(coalesce(p_payload->>'notes', '')), '');
-  v_items     jsonb := coalesce(p_payload->'items', '[]'::jsonb);
+  /* PostgREST passes a nested object as json, so take one cast up front */
+  v_body      jsonb := p_payload::jsonb;
+  v_name      text := btrim(coalesce(v_body->>'full_name', ''));
+  v_email     citext := lower(btrim(coalesce(v_body->>'email', '')));
+  v_phone     text := nullif(btrim(coalesce(v_body->>'phone', '')), '');
+  v_city      text := nullif(btrim(coalesce(v_body->>'city', '')), '');
+  v_notes     text := nullif(btrim(coalesce(v_body->>'notes', '')), '');
+  v_items     jsonb := coalesce(v_body->'items', '[]'::jsonb);
   v_item      jsonb;
   v_scent     text;
   v_size      text;
@@ -230,7 +234,7 @@ revoke all on all functions in schema public from anon, authenticated;
 
 grant select on public.scents, public.sizes to anon, authenticated;
 grant execute on function public.join_waitlist(text, text)  to anon, authenticated;
-grant execute on function public.create_preorder(jsonb)     to anon, authenticated;
+grant execute on function public.create_preorder(json)      to anon, authenticated;
 
 -- --------------------------------------------------------------- admin view
 -- Readable in the dashboard and with the service role only. No grant to anon.
