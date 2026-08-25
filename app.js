@@ -331,6 +331,28 @@
     }
   }
 
+  /* ---- logo ----
+     Drop a wordmark at assets/logo.png and it replaces the typeset one in the
+     nav and the footer. Without it the page keeps the Cormorant wordmark. */
+  (function(){
+    var marks = document.querySelectorAll(".wordmark");
+    if (!marks.length) return;
+    var src = (document.documentElement.getAttribute("data-base") || "") + "assets/logo.png";
+    var probe = new Image();
+    probe.onload = function(){
+      marks.forEach(function(mark){
+        var img = document.createElement("img");
+        img.src = src;
+        img.alt = "Banini Butter";
+        img.className = "wordmark-img";
+        var text = mark.querySelector(".wordmark-text");
+        if (text) text.remove();
+        mark.appendChild(img);
+      });
+    };
+    probe.src = src;
+  })();
+
   /* ---- media slots ----
      Drop a real asset at the path below and it replaces the illustration automatically.
      assets/hero-raw.jpg, assets/hero-jar.jpg, assets/story.jpg, assets/product.jpg, assets/texture.jpg
