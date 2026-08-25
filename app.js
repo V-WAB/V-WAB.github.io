@@ -111,7 +111,10 @@
 
   var reason = function(err){
     if (!err) return "Something went wrong. Please try again.";
-    return err.hint || err.message || "Something went wrong. Please try again.";
+    if (err.code === "P0001" && err.hint) return err.hint;   /* written for a person */
+    if (err.hint && !err.code) return err.hint;              /* our own local errors */
+    console.error("Banini: unexpected error from the database", err);
+    return "Something went wrong at our end. Please try again in a moment.";
   };
 
   var EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -162,19 +165,31 @@
         say(">> usually a network block, a proxy, or the project being paused");
       });
 
-      /* deliberately invalid, so it proves the function resolves without
-         writing a row: no items means the function raises before inserting */
+      /* a real reservation, marked as a probe, because an empty basket returns
+         before the lines that actually fail */
       say("");
-      say("calling create_preorder...");
+      say("placing a real test reservation...");
       fetch(API + "/rest/v1/rpc/create_preorder", {
         method: "POST",
         headers: { "apikey": KEY, "Authorization": "Bearer " + KEY, "Content-Type": "application/json" },
-        body: JSON.stringify({ p_payload: { full_name: "Debug Probe", email: "debug@example.com", phone: "0000000", items: [] } })
+        body: JSON.stringify({ p_payload: {
+          full_name: "Debug Probe", email: "debug@example.com", phone: "0000000000",
+          city: "Debug", notes: "placed by the debug panel, safe to delete",
+          items: [{ scent: "sunrise", size: "50ml", quantity: 1 }]
+        } })
       }).then(function(res){
         return res.text().then(function(body){
           say("HTTP " + res.status + " " + res.statusText);
           say(body.slice(0, 400));
-          if (body.indexOf("no_items") > -1) say(">> the function resolves and validates, the reservation path is sound");
+          if (res.ok) say(">> a reservation went through, the path is sound. Delete the debug@example.com row when you like");
+          try {
+            var parsed = JSON.parse(body);
+            if (parsed.message) say("message: " + parsed.message);
+            if (parsed.details) say("details: " + parsed.details);
+            if (parsed.hint) say("hint   : " + parsed.hint);
+          } catch (e) {}
+          if (body.indexOf("does not exist") > -1)
+            say(">> THIS is the real fault: something the function calls is not visible to it");
           if (body.indexOf("No function matches") > -1) say(">> old signature still in the database, re-run the migration");
           if (body.indexOf("schema cache") > -1) say(">> PostgREST is holding a stale schema, run: notify pgrst, 'reload schema';");
           if (res.status === 404) say(">> the function is missing from this project entirely");
