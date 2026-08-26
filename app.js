@@ -18,14 +18,24 @@
     range.addEventListener("pointerdown", takeOver);
     range.addEventListener("touchstart", takeOver, { passive: true });
 
+    /* The hero pins itself to the top of the screen for as long as the track
+       is taller than the panel. That surplus is the whole budget: scrolling
+       through it wipes raw across to refined while the page itself stays put,
+       and only once the track runs out does the story below come up. */
+    var track = document.getElementById("heroTrack");
+
     var fromScroll = function(){
       queued = false;
       if (manual) return;
-      var rect = slider.getBoundingClientRect();
-      var travel = rect.height || 1;
-      /* the wipe finishes once the hero is 45% gone, so the refined jar is
-         still well in view rather than completing off the top of the screen */
-      var progress = Math.min(1, Math.max(0, (-rect.top / travel) / 0.45));
+      var host = track || slider;
+      var rect = host.getBoundingClientRect();
+      var pinned = rect.height - slider.offsetHeight;
+      /* no track, or reduced motion has flattened it: fall back to reading the
+         panel's own passage up the screen */
+      if (pinned < 40) pinned = (slider.offsetHeight || 1) * 0.45;
+      /* finish at 70% so the whipped jar gets a beat on screen, whole and
+         still, before the page is handed back to the reader */
+      var progress = Math.min(1, Math.max(0, (-rect.top / pinned) / 0.7));
       range.value = RAW + (REFINED - RAW) * progress;
       paint();
     };

@@ -15,7 +15,11 @@
   --body:"Jost","Helvetica Neue",Helvetica,Arial,sans-serif;
   --mono:"DM Mono","Courier New",Courier,monospace;
   --gutter:clamp(20px,5vw,64px);
+  /* the navigation bar's own height: 48px logo, 16px of air above and below,
+     and the hairline underneath it */
+  --nav-h:81px;
 }
+@media (max-width:880px){:root{--nav-h:71px}}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
@@ -82,7 +86,10 @@ section{padding:clamp(72px,10vw,132px) 0}
 @media (max-width:880px){.nav-links{display:none}}
 
 /* ---------- hero ---------- */
-.hero{padding:0}
+/* The hero is pulled up under the navigation so it starts at the very top of
+   the screen. The bar floats over it, and a full screen of hero means the
+   headline and the buttons at its foot are in view from the first paint. */
+.hero{padding:0;margin-top:calc(var(--nav-h) * -1)}
 
 .hero-copy{
   position:absolute;left:0;right:0;bottom:0;z-index:4;pointer-events:none;
@@ -106,9 +113,18 @@ section{padding:clamp(72px,10vw,132px) 0}
 .link-ghost.light:hover{color:var(--gold-soft);border-color:var(--gold-soft)}
 
 /* ---------- drag reveal ---------- */
+/* The hero holds still and fills the screen while the scroll drives the wipe.
+   The track is taller than the panel it holds, and that surplus height is the
+   scrolling the reveal consumes before the page is allowed to move on. The
+   panel is exactly one screen tall, so nothing shows underneath it while it
+   is pinned. */
+/* dvh for the panel, so a phone's address bar sliding away can never leave a
+   band of bare cream under a hero that is pinned to the screen */
+.hero-track{position:relative;height:162vh;height:calc(100dvh + 62svh)}
 .reveal-slider{
   --pos:84%;
-  position:relative;width:100%;height:clamp(520px,76vh,880px);overflow:hidden;
+  position:sticky;top:0;
+  width:100%;height:100vh;height:100dvh;overflow:hidden;
   background:var(--kraft);touch-action:pan-y;
 }
 .rs-layer{position:absolute;inset:0}
@@ -127,12 +143,10 @@ section{padding:clamp(72px,10vw,132px) 0}
 .rs-knob{
   position:absolute;top:50%;left:var(--pos);width:56px;height:56px;margin:-28px 0 0 -28px;z-index:3;
   border-radius:50%;background:rgba(251,247,236,.94);border:1px solid var(--gold-soft);
-  display:flex;align-items:center;justify-content:center;gap:5px;pointer-events:none;
+  display:flex;align-items:center;justify-content:center;pointer-events:none;
   box-shadow:0 8px 26px -8px rgba(27,48,32,.7);
 }
-.rs-knob i{width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent}
-.rs-knob i:first-child{border-right:7px solid var(--green)}
-.rs-knob i:last-child{border-left:7px solid var(--green)}
+.rs-knob svg{width:25px;height:30px;display:block}
 .rs-range{
   position:absolute;inset:0;width:100%;height:100%;margin:0;z-index:3;opacity:0;
   cursor:ew-resize;-webkit-appearance:none;appearance:none;background:transparent;
@@ -142,7 +156,8 @@ section{padding:clamp(72px,10vw,132px) 0}
 .rs-range:focus-visible{outline:none}
 .rs-range:focus-visible ~ .rs-knob{outline:2px solid var(--gold-soft);outline-offset:4px}
 .rs-tag{
-  position:absolute;top:20px;z-index:3;font-family:var(--mono);font-size:10px;letter-spacing:.16em;
+  /* clear of the navigation bar now that the hero runs up behind it */
+  position:absolute;top:calc(var(--nav-h) + 20px);z-index:3;font-family:var(--mono);font-size:10px;letter-spacing:.16em;
   text-transform:uppercase;color:var(--cream);background:rgba(27,48,32,.42);
   border:1px solid rgba(251,247,236,.28);padding:7px 12px;pointer-events:none;
   backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);
@@ -156,17 +171,30 @@ section{padding:clamp(72px,10vw,132px) 0}
 }
 .rs-hint::before{content:"";width:26px;height:1px;background:var(--gold-soft)}
 @media (max-width:880px){
-  .reveal-slider{height:clamp(560px,84vh,820px)}
+  .hero-track{height:154vh;height:calc(100dvh + 54svh)}
   .hero-copy .lede{font-size:17px}
   .rs-hint{display:none}
-  .rs-tag{top:16px;font-size:9px;letter-spacing:.12em;padding:6px 9px}
+  .rs-tag{top:calc(var(--nav-h) + 14px);font-size:9px;letter-spacing:.12em;padding:6px 9px}
+}
+
+/* Pinning the page under somebody is the sort of thing that makes people
+   motion sick, so anyone who has asked for less movement gets a plain banner
+   they can still drag by hand. */
+@media (prefers-reduced-motion:reduce){
+  .hero-track{height:auto}
+  .reveal-slider{position:relative;height:clamp(520px,76vh,880px)}
 }
 
 /* ---------- stats ---------- */
 .band{background:var(--green);color:var(--cream)}
 .band#voices{background:var(--green-deep)}
 .band .eyebrow{color:var(--gold-soft)}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(28px,5vw,64px)}
+.stats{
+  display:grid;gap:clamp(28px,5vw,64px);
+  /* auto-fit rather than a fixed three, so the band sits evenly whether the
+     testing gives us two figures to show or three */
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));
+}
 .stat{border-top:1px solid rgba(251,247,236,.22);padding-top:24px}
 .stat-figure{font-family:var(--display);font-size:clamp(50px,7vw,86px);line-height:1;color:var(--gold-soft)}
 .stat p{margin:12px 0 0;color:rgba(251,247,236,.82);font-size:16px;max-width:30ch}
