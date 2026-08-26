@@ -108,7 +108,7 @@ section{padding:clamp(72px,10vw,132px) 0}
 /* ---------- drag reveal ---------- */
 .reveal-slider{
   --pos:84%;
-  position:relative;width:100%;height:clamp(430px,64vh,780px);overflow:hidden;
+  position:relative;width:100%;height:clamp(520px,76vh,880px);overflow:hidden;
   background:var(--kraft);touch-action:pan-y;
 }
 .rs-layer{position:absolute;inset:0}
@@ -156,7 +156,7 @@ section{padding:clamp(72px,10vw,132px) 0}
 }
 .rs-hint::before{content:"";width:26px;height:1px;background:var(--gold-soft)}
 @media (max-width:880px){
-  .reveal-slider{height:clamp(520px,80vh,760px)}
+  .reveal-slider{height:clamp(560px,84vh,820px)}
   .hero-copy .lede{font-size:17px}
   .rs-hint{display:none}
   .rs-tag{top:16px;font-size:9px;letter-spacing:.12em;padding:6px 9px}

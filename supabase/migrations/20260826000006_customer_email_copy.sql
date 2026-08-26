@@ -30,8 +30,8 @@ as $$
 
     '<div style="height:1px;background:#DACAA6;margin:32px 0 18px;"></div>' ||
     '<p style="font-size:12px;line-height:1.7;color:#5A5040;margin:0;text-align:center;">' ||
-      'Banini Butter &nbsp;&#183;&nbsp; Tamale and Accra, Ghana<br>' ||
-      'Nurtured by nature, finished by hand.' ||
+      'Banini Butter &nbsp;&#183;&nbsp; Shea from Tamale, whipped in Accra<br>' ||
+      'Nurtured by Nature, from her hands to yours.' ||
     '</p>' ||
 
   '</div></div>'
