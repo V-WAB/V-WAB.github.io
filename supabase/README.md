@@ -120,6 +120,14 @@ values ('from_email', 'Banini Butter <hello@yourdomain.com>')
   on conflict (key) do update set value = excluded.value;
 ```
 
+### Your own copy versus the customer's
+
+Your notification is always sent from the shared Resend address, because Resend
+will deliver that to the account owner whether or not a domain is verified.
+Only the customer's confirmation uses `from_email`, since Resend refuses to
+write to other people from the shared address. That way a pending DNS record
+can never cost you the news of a reservation.
+
 ### When an email does not arrive
 
 Every attempt is recorded, including the ones that never left:
