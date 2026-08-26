@@ -36,12 +36,11 @@ insert into public.scents (slug, name, blend, note, sort) values
 on conflict (slug) do update
   set name = excluded.name, blend = excluded.blend, note = excluded.note, sort = excluded.sort;
 
--- Prices: 300ml is the median our testers named. The other two are scaled
--- from it and are indicative until the first run is costed.
+-- Prices set by the founder. 300ml is the median our testers named.
 insert into public.sizes (slug, label, ml, price_ghs, sort) values
-  ('50ml',  '50ml',  50,   60.00, 1),
+  ('50ml',  '50ml',  50,   80.00, 1),
   ('300ml', '300ml', 300, 200.00, 2),
-  ('600ml', '600ml', 600, 360.00, 3)
+  ('600ml', '600ml', 600, 400.00, 3)
 on conflict (slug) do update
   set label = excluded.label, ml = excluded.ml, price_ghs = excluded.price_ghs, sort = excluded.sort;
 
