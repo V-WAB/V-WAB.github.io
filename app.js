@@ -109,8 +109,11 @@
     });
   };
 
+  var DEBUG = /[?&]debug=1/.test(location.search);
+
   var reason = function(err){
     if (!err) return "Something went wrong. Please try again.";
+    if (DEBUG) return "[debug] " + JSON.stringify(err);      /* the whole truth, on request */
     if (err.code === "P0001" && err.hint) return err.hint;   /* written for a person */
     if (err.hint && !err.code) return err.hint;              /* our own local errors */
     console.error("Banini: unexpected error from the database", err);
@@ -123,6 +126,37 @@
     var text = whole % 1 === 0 ? String(whole) : whole.toFixed(2);
     return "\u20B5" + text.replace(/\B(?=(\d{3})+(?!\d))/, ",");
   };
+
+  /* ---- diagnostics, read only ----
+     ?debug=1 reports what the browser loaded and whether it can reach the
+     database. It writes nothing. */
+  if (DEBUG){
+    var box = document.createElement("div");
+    box.setAttribute("style", "position:fixed;left:12px;right:12px;bottom:12px;z-index:9999;background:#1B3020;color:#FBF7EC;padding:14px 16px;font:12px/1.6 ui-monospace,Menlo,Consolas,monospace;white-space:pre-wrap;border:1px solid #B8923F;max-height:55vh;overflow:auto");
+    var say = function(line){ box.textContent += line + "\n"; };
+    var mount = function(){ document.body.appendChild(box); };
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", mount); else mount();
+
+    var tag = document.querySelector('script[src*="app.js"]');
+    say("page      : " + location.href);
+    say("app.js    : " + (tag ? tag.getAttribute("src") : "NOT FOUND"));
+    say("config    : " + (window.BANINI_CONFIG ? "loaded" : "MISSING"));
+    say("supabase  : " + (API || "EMPTY"));
+    say("connected : " + connected);
+
+    if (connected){
+      fetch(API + "/rest/v1/sizes?select=slug,price_ghs&order=sort", {
+        headers: { "apikey": KEY, "Authorization": "Bearer " + KEY }
+      }).then(function(res){
+        return res.text().then(function(body){
+          say("catalogue : HTTP " + res.status + "  " + body.slice(0, 120));
+        });
+      }).catch(function(err){ say("catalogue : request failed, " + err.message); });
+    }
+    say("");
+    say("Now fill the form and press the button. The message under it will");
+    say("show the exact error rather than the polite version.");
+  }
 
   /* ---- waitlist ---- */
   var form = document.getElementById("signup");
