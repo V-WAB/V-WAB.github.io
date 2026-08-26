@@ -21,7 +21,8 @@
 }
 @media (max-width:880px){:root{--nav-h:71px}}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
+/* jumping to a section should not park its heading behind the navigation bar */
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--nav-h) + 12px)}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 body{
   margin:0;background:var(--cream);color:var(--ink);
