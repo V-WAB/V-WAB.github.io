@@ -8,7 +8,7 @@ replacing the hand-drawn line-art placeholder. Anything missing keeps its illust
 | `hero-raw.jpg` | `HERO_IMAGE_RAW` | Left side of the hero drag-reveal (raw shea nuts / kernels) |
 | `hero-jar.jpg` | `HERO_IMAGE_JAR` | Poster frame for the hero video, and the fallback if the clip cannot play |
 | `story.mp4` | `HERO_VIDEO` | Plays on the refined half of the hero. Currently the only clip we have |
-| `story.jpg` | `STORY_IMAGE` | Brand story section. Nothing uploaded yet, so the calabash illustration still stands there |
+| `story.jpg` | `STORY_IMAGE` | Brand story section, beside the founder's note. Upload as `.jpg`, not `.jpeg` |
 | `product.jpg` | `PRODUCT_IMAGE` | The Jar section, replacing the illustrated jars. Most important slot. |
 | `scents.jpg` | Scent range | The Blends section. The frame stays hidden until this file exists, so the section reads fine without it. |
 | `texture.jpg` | `TEXTURE_IMAGE` (optional) | Not wired by default. See the `SLOTS` object at the bottom of `index.html` to place it. |
