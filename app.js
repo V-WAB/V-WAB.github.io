@@ -132,7 +132,7 @@
      database. It writes nothing. */
   if (DEBUG){
     var box = document.createElement("div");
-    box.setAttribute("style", "position:fixed;left:12px;right:12px;bottom:12px;z-index:9999;background:#1B3020;color:#FBF7EC;padding:14px 16px;font:12px/1.6 ui-monospace,Menlo,Consolas,monospace;white-space:pre-wrap;border:1px solid #B8923F;max-height:55vh;overflow:auto");
+    box.setAttribute("style", "position:fixed;left:12px;right:12px;bottom:12px;z-index:9999;background:#1B3020;color:#FBF7EC;padding:14px 16px;font:12px/1.6 ui-monospace,Menlo,Consolas,monospace;white-space:pre-wrap;border:1px solid #B8923F;max-height:40vh;overflow:auto;pointer-events:none;opacity:.95");
     var say = function(line){ box.textContent += line + "\n"; };
     var mount = function(){ document.body.appendChild(box); };
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", mount); else mount();
@@ -257,8 +257,11 @@
     };
 
     document.getElementById("addLine").addEventListener("click", function(){
+      if (DEBUG) console.log("Banini: add-to-reservation clicked");
       var scent = checked("scent");
       var size = checked("size");
+      if (DEBUG) rNote.textContent = "[debug] add clicked. scent=" + (scent && scent.value) +
+                                     " size=" + (size && size.value) + " qty=" + qtyEl.value;
       var quantity = Math.min(12, Math.max(1, parseInt(qtyEl.value, 10) || 1));
       qtyEl.value = quantity;
       if (!scent || !size) return;
@@ -285,7 +288,15 @@
 
     rForm.addEventListener("submit", function(ev){
       ev.preventDefault();
-      if (document.getElementById("company").value) return;   // honeypot
+
+      var trap = document.getElementById("company");
+      if (trap && trap.value){
+        /* Bots fill this hidden field. So, sometimes, does a browser autofill,
+           and a human must never be turned away in silence. */
+        console.warn("Banini: the hidden field was filled with", trap.value, "- clearing it and continuing");
+        if (DEBUG) rNote.textContent = "[debug] hidden field was filled with: " + trap.value;
+        trap.value = "";
+      }
 
       var name = document.getElementById("fullName");
       var email = document.getElementById("orderEmail");
