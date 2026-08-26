@@ -1,18 +1,17 @@
--- Banini Butter: why did an email not arrive?
---
--- Paste into a new SQL Editor tab, highlight nothing, press Run.
--- Reads only. The last statement is the one that answers the question.
+-- Banini Butter: what is configured, and what happened to recent emails.
+-- Paste into a NEW query tab, highlight nothing, press Run. Reads only.
 
-select
-  l.created_at,
-  l.kind,
-  l.recipient,
-  l.reference,
-  l.note                              as what_we_recorded,
-  r.status_code                       as resend_replied,
-  left(r.content, 300)                as resend_said,
-  left(r.error_msg, 200)              as network_error
-from public.email_log l
-left join net._http_response r on r.id = l.request_id
-order by l.id desc
-limit 15;
+select public.sync_email_results();
+
+select item, detail from (
+  select 1 as sort, 'CONFIG  ' || key as item,
+         case when key = 'resend_api_key' then '(hidden, ' || length(value) || ' chars)' else value end as detail,
+         null::timestamptz as at
+  from public.app_config
+  union all
+  select 2, 'EMAIL   ' || to_char(created_at, 'HH24:MI') || '  ' || kind || ' to ' || recipient,
+         coalesce(reference || '  ', '') || note, created_at
+  from public.email_log
+  where created_at > now() - interval '2 hours'
+) x
+order by sort, at desc nulls last, item;
