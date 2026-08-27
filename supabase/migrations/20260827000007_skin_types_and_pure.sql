@@ -40,7 +40,16 @@ on conflict (slug) do update
 
 -- ------------------------------------------------------------------ prices
 -- One row per product, so any single one can be priced on its own without
--- touching the rest. The seed takes the size's price as a starting point.
+-- touching the rest.
+--
+-- The list below is the price list. Warm Heritage carries the cocoa butter,
+-- so it is a quarter more than the others. Pure is unscented and comes in
+-- nine per cent under. Skin type makes no difference to the price, so each
+-- line here is charged for all three of Deep Moisture, Matte and Balanced.
+--
+-- THIS FILE DECIDES THE PRICES. Running it again sets them back to what is
+-- written here, so change a price in this file rather than only in the
+-- dashboard, or a later run will quietly undo you.
 
 create table if not exists public.product_prices (
   scent_slug  text not null references public.scents(slug)     on update cascade,
@@ -51,12 +60,18 @@ create table if not exists public.product_prices (
   primary key (scent_slug, skin_slug, size_slug)
 );
 
+with price_list (scent_slug, size_slug, price_ghs) as (values
+  ('sunrise',       '50ml',   80.00), ('sunrise',       '300ml', 200.00), ('sunrise',       '600ml', 400.00),
+  ('warm-heritage', '50ml',  100.00), ('warm-heritage', '300ml', 250.00), ('warm-heritage', '600ml', 500.00),
+  ('nightfall',     '50ml',   80.00), ('nightfall',     '300ml', 200.00), ('nightfall',     '600ml', 400.00),
+  ('pure',          '50ml',   72.80), ('pure',          '300ml', 182.00), ('pure',          '600ml', 364.00)
+)
 insert into public.product_prices (scent_slug, skin_slug, size_slug, price_ghs)
-select sc.slug, sk.slug, sz.slug, sz.price_ghs
-from public.scents sc
+select pl.scent_slug, sk.slug, pl.size_slug, pl.price_ghs
+from price_list pl
 cross join public.skin_types sk
-cross join public.sizes sz
-on conflict (scent_slug, skin_slug, size_slug) do nothing;   -- never clobber an edit
+on conflict (scent_slug, skin_slug, size_slug) do update
+  set price_ghs = excluded.price_ghs;
 
 -- ------------------------------------------------------- the ordered lines
 
