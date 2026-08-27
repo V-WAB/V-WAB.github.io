@@ -195,50 +195,21 @@ section{padding:clamp(72px,10vw,132px) 0}
 @media (max-width:880px){.stats{grid-template-columns:1fr}}
 
 /* ---------- positioning map ---------- */
-.map-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(36px,5vw,72px);align-items:start;margin-top:56px}
-.plot-wrap{position:relative;padding:0 0 34px 34px}
-.plot{
-  position:relative;aspect-ratio:1;background:var(--kraft);border:1px solid var(--line);
-  background-image:linear-gradient(var(--line-soft) 1px,transparent 1px),linear-gradient(90deg,var(--line-soft) 1px,transparent 1px);
-  background-size:25% 25%;
+/* ---------- the making ---------- */
+/* four steps, four across on a desktop, two by two on a tablet, stacked on a
+   phone, so the sequence never breaks into an odd row */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(24px,3.4vw,44px);margin-top:56px}
+@media (max-width:1100px){.steps{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:600px){.steps{grid-template-columns:1fr}}
+.step{border-top:1px solid var(--line);padding-top:24px}
+.step-shot{
+  margin:0 0 22px;aspect-ratio:22 / 15;overflow:hidden;background:var(--kraft);
+  border:1px solid var(--line-soft);
 }
-.plot::before,.plot::after{content:"";position:absolute;background:rgba(42,35,24,.22)}
-.plot::before{left:50%;top:0;bottom:0;width:1px}
-.plot::after{top:50%;left:0;right:0;height:1px}
-.quad-note{
-  position:absolute;right:14px;top:14px;max-width:44%;text-align:right;
-  font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(42,35,24,.4);line-height:1.7;
-}
-.axis{position:absolute;font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)}
-.axis-x{left:34px;right:0;bottom:0;text-align:center}
-.axis-y{left:0;top:50%;transform:rotate(-90deg) translateX(-50%);transform-origin:left center;white-space:nowrap}
-.dot{
-  position:absolute;transform:translate(-50%,50%);width:16px;height:16px;padding:0;border-radius:50%;
-  border:1px solid var(--green);background:var(--cream);cursor:pointer;
-  transition:transform .25s ease,background .25s ease;
-}
-.dot:hover,.dot:focus-visible{background:var(--gold);transform:translate(-50%,50%) scale(1.35)}
-.dot.is-us{background:var(--green);border-color:var(--green);width:22px;height:22px}
-.dot.is-us::after{
-  content:"";position:absolute;inset:-9px;border:1px solid var(--gold);border-radius:50%;
-}
-.dot.is-us:hover,.dot.is-us:focus-visible{background:var(--gold);border-color:var(--gold)}
-.dot .tip{
-  position:absolute;left:50%;bottom:calc(100% + 12px);transform:translateX(-50%);
-  background:var(--green-deep);color:var(--cream);padding:8px 12px;white-space:nowrap;
-  font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
-  opacity:0;visibility:hidden;transition:opacity .22s ease;pointer-events:none;
-}
-.dot:hover .tip,.dot:focus-visible .tip{opacity:1;visibility:visible}
-.dot.edge .tip{left:auto;right:-6px;transform:none}
-.dot.is-us .tip{bottom:auto;top:calc(100% + 14px)}
-.legend{list-style:none;margin:0;padding:0}
-.legend li{padding:20px 0;border-bottom:1px solid var(--line-soft)}
-.legend li:first-child{padding-top:0}
-.legend h3{font-size:20px;margin-bottom:7px}
-.legend .is-us-name{color:var(--gold)}
-.legend p{margin:0;font-size:15.5px;color:var(--ink-soft)}
-@media (max-width:880px){.map-grid{grid-template-columns:1fr}}
+.step-shot img,.step-shot .media,.step-shot video{width:100%;height:100%;object-fit:cover;display:block}
+.step .label{color:var(--gold);display:block;margin-bottom:12px}
+.step h3{margin-bottom:9px}
+.step p{margin:0;font-size:15.5px;color:var(--ink-soft)}
 
 /* ---------- story ---------- */
 .split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(36px,6vw,84px);align-items:center}
