@@ -293,6 +293,7 @@ section{padding:clamp(72px,10vw,132px) 0}
 .jar-list .v{margin:0;font-size:16.5px}
 .jar-list .v small{display:block;color:var(--ink-soft);font-size:14.5px;margin-top:3px}
 .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(24px,4vw,48px);margin-top:clamp(56px,7vw,88px)}
+.range-lede + .pillars{margin-top:clamp(28px,3.5vw,44px)}
 .pillar{border-top:1px solid var(--line);padding-top:22px}
 .pillar .label{color:var(--gold);display:block;margin-bottom:12px}
 .pillar h3{margin-bottom:9px}
@@ -331,7 +332,14 @@ footer{padding:44px 0}
 .foot-in p{margin:0}
 
 /* ---------- scents ---------- */
-.scent-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(24px,3.4vw,44px);margin-top:56px}
+/* four blends: four across on a desktop, a tidy two by two on a tablet,
+   stacked on a phone. Never three with a lonely fourth underneath. */
+.scent-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(24px,3.4vw,44px);margin-top:56px}
+@media (max-width:1100px){.scent-grid{grid-template-columns:repeat(2,1fr)}}
+.range-lede{
+  font-size:clamp(18px,2vw,21px);color:var(--ink-soft);max-width:56ch;
+  margin:clamp(56px,7vw,88px) 0 0;
+}
 .scent{border-top:1px solid var(--line);padding-top:24px}
 .scent-shot{
   margin:0 0 22px;aspect-ratio:5 / 2;overflow:hidden;background:var(--kraft);
@@ -346,7 +354,7 @@ footer{padding:44px 0}
 .size-strip{display:flex;flex-wrap:wrap;gap:10px 34px;margin-top:44px;padding-top:22px;border-top:1px solid var(--line-soft)}
 .size-strip span{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)}
 .size-strip b{color:var(--gold);font-weight:400}
-@media (max-width:880px){.scent-grid{grid-template-columns:1fr}}
+@media (max-width:600px){.scent-grid{grid-template-columns:1fr}}
 
 /* ---------- reserve ---------- */
 .reserve-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(36px,5vw,76px);align-items:start;margin-top:52px}

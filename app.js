@@ -185,22 +185,36 @@
       var el = input.closest(".opt").querySelector(".opt-name");
       return el ? el.textContent.trim() : input.value;
     };
-    var priceFor = function(size){
+    /* Every one of the thirty-six products can carry its own price, so the
+       browser reads the real table rather than assuming size decides it. The
+       size's own price is the fallback until that table arrives, and the
+       database prices the order again on submit either way. */
+    var priceTable = null;
+    var key = function(scent, skin, size){ return scent + "|" + skin + "|" + size; };
+
+    var sizePrice = function(size){
       var input = rForm.querySelector('input[name="size"][value="' + size + '"]');
       return input ? parseFloat(input.dataset.price) || 0 : 0;
+    };
+    var priceFor = function(scent, skin, size){
+      if (priceTable){
+        var found = priceTable[key(scent, skin, size)];
+        if (found !== undefined) return found;
+      }
+      return sizePrice(size);
     };
 
     var render = function(){
       linesEl.textContent = "";
       var total = 0;
       lines.forEach(function(line, index){
-        var cost = priceFor(line.size) * line.quantity;
+        var cost = priceFor(line.scent, line.skin, line.size) * line.quantity;
         total += cost;
 
         var li = document.createElement("li");
         var name = document.createElement("span");
         name.className = "line-name";
-        name.textContent = line.scentName + ", " + line.size;
+        name.textContent = line.scentName + ", " + line.skinName + ", " + line.size;
         var small = document.createElement("small");
         small.textContent = line.quantity + (line.quantity === 1 ? " jar" : " jars");
         name.appendChild(small);
@@ -217,7 +231,8 @@
           remove.type = "button";
           remove.className = "remove";
           remove.textContent = "Remove";
-          remove.setAttribute("aria-label", "Remove " + line.quantity + " " + line.scentName + " " + line.size);
+          remove.setAttribute("aria-label",
+            "Remove " + line.quantity + " " + line.scentName + " " + line.skinName + " " + line.size);
           remove.addEventListener("click", function(){
             lines.splice(index, 1);
             render();
@@ -234,14 +249,16 @@
 
     document.getElementById("addLine").addEventListener("click", function(){
       var scent = checked("scent");
+      var skin = checked("skin");
       var size = checked("size");
       var quantity = Math.min(12, Math.max(1, parseInt(qtyEl.value, 10) || 1));
       qtyEl.value = quantity;
-      if (!scent || !size) return;
+      if (!scent || !skin || !size) return;
 
+      /* a line is the same line only when all three choices match */
       var existing = null;
       lines.forEach(function(line){
-        if (line.scent === scent.value && line.size === size.value) existing = line;
+        if (line.scent === scent.value && line.skin === skin.value && line.size === size.value) existing = line;
       });
 
       if (existing){
@@ -251,11 +268,15 @@
         rNote.textContent = "A single reservation holds up to 10 lines. Write to me for anything larger.";
         return;
       } else {
-        lines.push({ scent: scent.value, scentName: labelFor(scent), size: size.value, quantity: quantity });
+        lines.push({
+          scent: scent.value, scentName: labelFor(scent),
+          skin: skin.value,   skinName: labelFor(skin),
+          size: size.value,   quantity: quantity
+        });
       }
 
       rNote.dataset.state = "ok";
-      rNote.textContent = "Added " + quantity + " " + labelFor(scent) + " " + size.value + ".";
+      rNote.textContent = "Added " + quantity + " " + labelFor(scent) + " " + labelFor(skin) + " " + size.value + ".";
       render();
     });
 
@@ -310,7 +331,7 @@
           city: document.getElementById("city").value.trim(),
           notes: document.getElementById("notes").value.trim(),
           items: lines.map(function(line){
-            return { scent: line.scent, size: line.size, quantity: line.quantity };
+            return { scent: line.scent, skin: line.skin, size: line.size, quantity: line.quantity };
           })
         }
       }).then(function(data){
@@ -348,22 +369,35 @@
       });
     });
 
+    /* the price beside each size is for the blend and skin currently picked,
+       so it follows the other two choices around */
+    var paintSizePrices = function(){
+      var scent = checked("scent"), skin = checked("skin");
+      if (!scent || !skin) return;
+      rForm.querySelectorAll('input[name="size"]').forEach(function(input){
+        var tag = document.querySelector('[data-price-for="' + input.value + '"]');
+        if (tag) tag.textContent = cedi(priceFor(scent.value, skin.value, input.value));
+      });
+    };
+    rForm.addEventListener("change", function(ev){
+      if (ev.target.name === "scent" || ev.target.name === "skin") paintSizePrices();
+    });
+
     /* prices live in the database, so refresh them when we are connected */
     if (connected){
-      fetch(API + "/rest/v1/sizes?select=slug,price_ghs&active=eq.true", {
+      fetch(API + "/rest/v1/product_prices?select=scent_slug,skin_slug,size_slug,price_ghs&active=eq.true", {
         headers: { "apikey": KEY, "Authorization": "Bearer " + KEY }
-      }).then(function(res){ return res.ok ? res.json() : []; }).then(function(rows){
-        (rows || []).forEach(function(row){
-          var input = rForm.querySelector('input[name="size"][value="' + row.slug + '"]');
-          if (input) input.dataset.price = row.price_ghs;
-          var tag = document.querySelector('[data-price-for="' + row.slug + '"]');
-          if (tag) tag.textContent = cedi(parseFloat(row.price_ghs));
-          var strip = document.querySelector('[data-size-strip="' + row.slug + '"] b');
-          if (strip) strip.textContent = cedi(parseFloat(row.price_ghs));
+      }).then(function(res){ return res.ok ? res.json() : null; }).then(function(rows){
+        if (!rows || !rows.length) return;      /* before the migration is run */
+        priceTable = {};
+        rows.forEach(function(row){
+          priceTable[key(row.scent_slug, row.skin_slug, row.size_slug)] = parseFloat(row.price_ghs);
         });
+        paintSizePrices();
         render();
       }).catch(function(){ /* the page keeps the prices it shipped with */ });
     }
+    paintSizePrices();
   }
 
   /* ---- logo ----
@@ -403,6 +437,7 @@
     "blend-sunrise":       { src: BASE + "assets/blend-sunrise.jpg",       alt: "The Sunrise blend in 50ml, 300ml and 600ml jars, tagged with lemon and sweet orange" },
     "blend-warm-heritage": { src: BASE + "assets/blend-warm-heritage.jpg", alt: "The Warm Heritage blend in 50ml, 300ml and 600ml jars, tagged with cocoa" },
     "blend-nightfall":     { src: BASE + "assets/blend-nightfall.jpg",     alt: "The Nightfall blend in 50ml, 300ml and 600ml jars, tagged with lavender" },
+    "blend-pure":          { src: BASE + "assets/blend-pure.jpg",          alt: "The Pure unscented blend in 50ml, 300ml and 600ml jars" },
     "reserve-header": { src: BASE + "assets/hero-jar.jpg", alt: "Banini whipped shea butter in its three jar sizes on a wooden table" }
   };
 
