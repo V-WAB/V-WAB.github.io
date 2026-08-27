@@ -131,15 +131,20 @@ section{padding:clamp(72px,10vw,132px) 0}
 .rs-layer{position:absolute;inset:0}
 .rs-layer .media,.rs-layer svg,.rs-layer img,.rs-layer video{width:100%;height:100%;object-fit:cover;display:block}
 .rs-left{clip-path:inset(0 calc(100% - var(--pos)) 0 0)}
+/* a short fade at the boundary instead of a hard cut, where the browser
+   supports masking. clip-path stays as the fallback. */
+@supports ((mask-image:linear-gradient(#000,#000)) or (-webkit-mask-image:linear-gradient(#000,#000))){
+  .rs-left{
+    clip-path:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 calc(var(--pos) - 26px),transparent var(--pos));
+    mask-image:linear-gradient(90deg,#000 calc(var(--pos) - 26px),transparent var(--pos));
+  }
+}
 .rs-scrim{
   position:absolute;inset:0;z-index:2;pointer-events:none;
   background:
     linear-gradient(90deg,rgba(27,48,32,.80) 0%,rgba(27,48,32,.52) 38%,rgba(27,48,32,.06) 72%,rgba(27,48,32,0) 100%),
     linear-gradient(0deg,rgba(27,48,32,.62) 0%,rgba(27,48,32,.12) 42%,rgba(27,48,32,0) 70%);
-}
-.rs-divider{
-  position:absolute;top:0;bottom:0;left:var(--pos);width:1px;background:rgba(251,247,236,.85);
-  box-shadow:0 0 18px rgba(27,48,32,.5);pointer-events:none;z-index:3;
 }
 .rs-knob{
   position:absolute;top:50%;left:var(--pos);width:56px;height:56px;margin:-28px 0 0 -28px;z-index:3;
