@@ -438,6 +438,12 @@
     "blend-warm-heritage": { src: BASE + "assets/blend-warm-heritage.jpg", alt: "The Warm Heritage blend in 50ml, 300ml and 600ml jars, tagged with cocoa" },
     "blend-nightfall":     { src: BASE + "assets/blend-nightfall.jpg",     alt: "The Nightfall blend in 50ml, 300ml and 600ml jars, tagged with lavender" },
     "blend-pure":          { src: BASE + "assets/blend-pure.jpg",          alt: "The Pure unscented blend in 50ml, 300ml and 600ml jars" },
+    /* the four making steps. Drop a photograph at any of these paths and it
+       takes the place of the drawn illustration, one step at a time. */
+    "step-gathered": { src: BASE + "assets/step-gathered.jpg", alt: "Shea nuts being gathered by hand on the savannah" },
+    "step-pressed":  { src: BASE + "assets/step-pressed.jpg",  alt: "Shea kernels being pounded and pressed into raw butter" },
+    "step-whipped":  { src: BASE + "assets/step-whipped.jpg",  alt: "Shea butter being whipped by hand in Accra" },
+    "step-sealed":   { src: BASE + "assets/step-sealed.jpg",   alt: "A finished Banini jar being sealed and tagged" },
     "reserve-header": { src: BASE + "assets/hero-jar.jpg", alt: "Banini whipped shea butter in its three jar sizes on a wooden table" }
   };
 

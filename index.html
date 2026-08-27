@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=DM+Mono:wght@400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=20260827i">
+<link rel="stylesheet" href="styles.css?v=20260827k">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -23,7 +23,7 @@
     <nav aria-label="Primary">
       <ul class="nav-links">
         <li><a href="#story">Story</a></li>
-        <li><a href="#standing">Standing</a></li>
+        <li><a href="#making">The Making</a></li>
         <li><a href="#jar">The Jar</a></li>
         <li><a href="#scents">Scents</a></li>
         <li><a href="#voices">Voices</a></li>
@@ -89,7 +89,7 @@
     <input class="rs-range" id="rsRange" type="range" min="0" max="100" step="0.1" value="84"
            aria-label="Drag to reveal raw shea kernels on the left or whipped Banini butter on the right">
     <div class="rs-knob" aria-hidden="true">
-      <img src="assets/leaf.png?v=20260827i" alt="" width="160" height="97" decoding="async">
+      <img src="assets/leaf.png?v=20260827k" alt="" width="160" height="97" decoding="async">
     </div>
     <div class="hero-copy">
       <div class="shell">
@@ -278,48 +278,103 @@
 
 <hr class="rule">
 
-<section id="standing" aria-labelledby="standing-h">
+<section id="making" aria-labelledby="making-h">
   <div class="shell">
-    <span class="eyebrow r">Where we stand</span>
-    <h2 id="standing-h" class="r d1">The shelf we intend to <em>sit on.</em></h2>
-    <p class="lede r d2">Two questions decide this category. Does it come from where it says it comes from, and does it feel worth the money. Most shea sits low on one axis or the other. We are building for the corner where both hold.</p>
+    <span class="eyebrow r">The making</span>
+    <h2 id="making-h" class="r d1">How a nut becomes <em>butter.</em></h2>
+    <p class="lede r d2">Four steps between the tree and your hands. Nothing is rushed, and nothing is padded out with water or filler to make it go further.</p>
 
-    <div class="map-grid">
-      <div class="plot-wrap r">
-        <div class="plot" id="plot">
-          <p class="quad-note">Premium and<br>authentically African</p>
-          <button class="dot is-us edge" type="button" style="left:86%;bottom:84%"><span class="tip">Banini Butter</span><span class="sr-only">Banini Butter, premium and authentically African</span></button>
-          <button class="dot edge" type="button" style="left:78%;bottom:62%"><span class="tip">Naya by Africa</span><span class="sr-only">Naya by Africa, authentically African, slightly less premium</span></button>
-          <button class="dot" type="button" style="left:24%;bottom:88%"><span class="tip">L'Occitane</span><span class="sr-only">L'Occitane, premium but reads as imported</span></button>
-          <button class="dot edge" type="button" style="left:92%;bottom:18%"><span class="tip">Market-stall raw butter</span><span class="sr-only">Market-stall raw butter, authentically African, mass market</span></button>
-          <button class="dot" type="button" style="left:30%;bottom:14%"><span class="tip">Supermarket own-brand</span><span class="sr-only">Supermarket own-brand, imported feel, mass market</span></button>
-        </div>
-        <span class="axis axis-x">Imported feel &#8596; Authentically African</span>
-        <span class="axis axis-y">Mass-market &#8596; Premium</span>
-      </div>
-
-      <ul class="legend r d1">
-        <li>
-          <h3 class="is-us-name">Banini Butter</h3>
-          <p>Whipped by hand in Accra from nuts we can trace to the women who gathered them in the north, finished to a standard that holds its own in any beauty hall. Ghanaian on the label and in the jar.</p>
-        </li>
-        <li>
-          <h3>Naya by Africa</h3>
-          <p>Our closest local rival and proof the demand is real. Strongly African in its story, though the finish and the price still read closer to everyday care than to luxury.</p>
-        </li>
-        <li>
-          <h3>L'Occitane</h3>
-          <p>The global benchmark for what shea can command. It buys Burkinab&#233; butter, then sells it as French. That gap is the opening we walk through.</p>
-        </li>
-        <li>
-          <h3>Market-stall raw butter</h3>
-          <p>The most honest shea in Ghana and the least consistent. Beautiful ingredient, no packaging, no testing, no reason for anyone abroad to trust it.</p>
-        </li>
-        <li>
-          <h3>Supermarket own-brand</h3>
-          <p>Shea listed fourth on an ingredient panel, cut with water and filler. Cheap, widely stocked, and forgettable.</p>
-        </li>
-      </ul>
+    <div class="steps">
+      <article class="step r">
+        <figure class="step-shot" data-slot="step-gathered">
+          <svg class="media" viewBox="0 0 220 150" role="img" aria-label="Illustration of shea nuts beside a leafy branch">
+          <rect width="220" height="150" fill="#E7DAC0"/>
+          <g fill="none" stroke="#2B4A32" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <ellipse cx="78" cy="96" rx="26" ry="21"/>
+            <path d="M60 88c12 8 30 9 42 1" opacity=".5"/>
+            <ellipse cx="120" cy="104" rx="22" ry="18"/>
+            <path d="M105 98c10 7 25 8 34 1" opacity=".5"/>
+            <ellipse cx="99" cy="66" rx="20" ry="16"/>
+            <path d="M46 118h128" opacity=".35"/>
+          </g>
+          <g fill="none" stroke="#B8923F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M150 36c-14 6-22 18-23 32 14 0 24-8 28-20"/>
+            <path d="M150 36c5 14 2 27-7 35-8-11-8-24 0-33" opacity=".8"/>
+            <path d="M141 74c-4 12-7 24-8 36" opacity=".55"/>
+          </g>
+        </svg>
+        </figure>
+        <span class="label">01</span>
+        <h3>Gathered</h3>
+        <p>It starts on the savannah around Tamale, where the nuts are picked by hand by the women who have always done that work.</p>
+      </article>
+      <article class="step r">
+        <figure class="step-shot" data-slot="step-pressed">
+          <svg class="media" viewBox="0 0 220 150" role="img" aria-label="Illustration of a mortar and pestle">
+          <rect width="220" height="150" fill="#E7DAC0"/>
+          <g fill="none" stroke="#2B4A32" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M70 86h80l-13 42a15 15 0 0 1-14 10H97a15 15 0 0 1-14-10z"/>
+            <ellipse cx="110" cy="86" rx="40" ry="10"/>
+            <path d="M96 138h28"/>
+            <rect x="116" y="26" width="21" height="56" rx="10.5"/>
+            <path d="M116 60h21" opacity=".4"/>
+          </g>
+          <g fill="none" stroke="#B8923F" stroke-width="2.2" stroke-linecap="round">
+            <path d="M62 62c-6-6-8-14-6-22" opacity=".8"/>
+            <path d="M170 62c6-6 8-14 6-22" opacity=".8"/>
+          </g>
+        </svg>
+        </figure>
+        <span class="label">02</span>
+        <h3>Pressed</h3>
+        <p>Roasted, pounded and pressed into raw shea butter the way the north has always done it. This is the slow part, and it stays slow.</p>
+      </article>
+      <article class="step r">
+        <figure class="step-shot" data-slot="step-whipped">
+          <svg class="media" viewBox="0 0 220 150" role="img" aria-label="Illustration of shea butter being whipped in a bowl with a paddle">
+          <rect width="220" height="150" fill="#E7DAC0"/>
+          <g fill="none" stroke="#2B4A32" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M56 92h108c0 30-24 40-54 40s-54-10-54-40z"/>
+            <ellipse cx="110" cy="92" rx="54" ry="11"/>
+            <path d="M76 110c18 9 42 10 66 2" opacity=".4"/>
+            <path d="M124 88V44"/>
+            <path d="M116 44h16l-4 16h-8z"/>
+          </g>
+          <g fill="none" stroke="#B8923F" stroke-width="2.2" stroke-linecap="round">
+            <path d="M84 78c10-12 22-16 36-12" opacity=".75"/>
+            <path d="M92 62c8-9 18-12 28-9" opacity=".5"/>
+          </g>
+        </svg>
+        </figure>
+        <span class="label">03</span>
+        <h3>Whipped</h3>
+        <p>It comes to Accra, where I whip it in small batches until it is light enough to melt the moment it touches skin.</p>
+      </article>
+      <article class="step r">
+        <figure class="step-shot" data-slot="step-sealed">
+          <svg class="media" viewBox="0 0 220 150" role="img" aria-label="Illustration of a sealed Banini jar with a wooden lid and a paper tag">
+          <rect width="220" height="150" fill="#E7DAC0"/>
+          <g fill="none" stroke="#2B4A32" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M80 64h60v56a13 13 0 0 1-13 13H93a13 13 0 0 1-13-13z"/>
+            <path d="M75 46h70v18H75z"/>
+            <path d="M83 46c0-9 7-15 16-16h22c9 1 16 7 16 16"/>
+            <path d="M78 70c16 5 48 5 64 0"/>
+            <path d="M80 86h60" stroke-dasharray="4 8" opacity=".45"/>
+            <path d="M146 60l16-6" opacity=".5"/>
+            <path d="M162 54l12 5-4 15-12-4z"/>
+            <path d="M162 62l9 3" opacity=".45"/>
+          </g>
+          <g fill="none" stroke="#B8923F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M110 114c-9-4-14-11-14-19 9 1 16 7 17 16"/>
+            <path d="M110 114c9-4 14-11 14-19-9 1-16 7-17 16"/>
+            <path d="M110 114v-8" opacity=".7"/>
+          </g>
+        </svg>
+        </figure>
+        <span class="label">04</span>
+        <h3>Sealed</h3>
+        <p>Blended for your skin, scented with essential oil or left bare, and sealed into glass the same day.</p>
+      </article>
     </div>
   </div>
 </section>
@@ -387,7 +442,7 @@
   </div>
 </footer>
 
-<script src="config.js?v=20260827i" defer></script>
-<script src="app.js?v=20260827i" defer></script>
+<script src="config.js?v=20260827k" defer></script>
+<script src="app.js?v=20260827k" defer></script>
 </body>
 </html>
