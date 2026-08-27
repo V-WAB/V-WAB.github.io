@@ -4,9 +4,8 @@
 -- It ends by printing all thirty-six products with their prices, so you can
 -- read the range back before anyone else orders from it.
 --
--- Safe to run more than once. The price seeding uses "do nothing" on conflict,
--- so once you have edited a price in the dashboard, re-running this file will
--- never overwrite it.
+-- Safe to run more than once, but note that this file holds the price list,
+-- so running it again sets every price back to what is written below.
 
 -- --------------------------------------------------------------- skin types
 
@@ -44,8 +43,9 @@ on conflict (slug) do update
 --
 -- The list below is the price list. Warm Heritage carries the cocoa butter,
 -- so it is a quarter more than the others. Pure is unscented and comes in
--- nine per cent under. Skin type makes no difference to the price, so each
--- line here is charged for all three of Deep Moisture, Matte and Balanced.
+-- nine per cent under, rounded up to a whole cedi at 50ml. Skin type makes
+-- no difference to the price, so each line here is charged for all three of
+-- Deep Moisture, Matte and Balanced.
 --
 -- THIS FILE DECIDES THE PRICES. Running it again sets them back to what is
 -- written here, so change a price in this file rather than only in the
@@ -64,7 +64,7 @@ with price_list (scent_slug, size_slug, price_ghs) as (values
   ('sunrise',       '50ml',   80.00), ('sunrise',       '300ml', 200.00), ('sunrise',       '600ml', 400.00),
   ('warm-heritage', '50ml',  100.00), ('warm-heritage', '300ml', 250.00), ('warm-heritage', '600ml', 500.00),
   ('nightfall',     '50ml',   80.00), ('nightfall',     '300ml', 200.00), ('nightfall',     '600ml', 400.00),
-  ('pure',          '50ml',   72.80), ('pure',          '300ml', 182.00), ('pure',          '600ml', 364.00)
+  ('pure',          '50ml',   73.00), ('pure',          '300ml', 182.00), ('pure',          '600ml', 364.00)
 )
 insert into public.product_prices (scent_slug, skin_slug, size_slug, price_ghs)
 select pl.scent_slug, sk.slug, pl.size_slug, pl.price_ghs
