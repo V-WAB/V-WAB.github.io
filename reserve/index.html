@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Reserve a jar &#183; Banini Butter</title>
-<meta name="description" content="Reserve Banini whipped shea butter before the first run. Choose your blend and size. Nothing is charged today.">
+<meta name="description" content="Reserve Banini whipped shea butter before the first run. Choose your blend, your skin type and your size. Nothing is charged today.">
 <link rel="canonical" href="https://baninibutter.com/reserve/">
 <meta name="theme-color" content="#2B4A32">
 <link rel="icon" type="image/png" href="../assets/favicon.png">
@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=DM+Mono:wght@400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../styles.css?v=20260827b">
+<link rel="stylesheet" href="../styles.css?v=20260827c">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -49,7 +49,7 @@
   <div class="shell">
     <span class="eyebrow r">Reserve</span>
     <h2 id="reserve-h" class="r d1">Pick your jars, we will <em>hold them.</em></h2>
-    <p class="lede r d2">Reservations are free and nothing is charged today. Tell me which blends and sizes you want and I will write to you with the total and the delivery options once the first run is whipped.</p>
+    <p class="lede r d2">Reservations are free and nothing is charged today. Tell me which blends, skin types and sizes you want and I will write to you with the total and the delivery options once the first run is whipped.</p>
 
     <div class="reserve-grid">
       <form id="reserveForm" class="r" novalidate>
@@ -59,11 +59,21 @@
             <label class="opt"><input type="radio" name="scent" value="sunrise" checked><span class="opt-name">Sunrise</span><span class="opt-note">Lemongrass and sweet orange</span></label>
             <label class="opt"><input type="radio" name="scent" value="warm-heritage"><span class="opt-name">Warm Heritage</span><span class="opt-note">Raw cocoa and benzoin</span></label>
             <label class="opt"><input type="radio" name="scent" value="nightfall"><span class="opt-name">Nightfall</span><span class="opt-note">Lavender and frankincense</span></label>
+            <label class="opt"><input type="radio" name="scent" value="pure"><span class="opt-name">Pure</span><span class="opt-note">Unscented</span></label>
           </div>
         </fieldset>
 
         <fieldset>
-          <legend>02 / Choose a size</legend>
+          <legend>02 / Choose your skin</legend>
+          <div class="opt-row" id="skinOptions">
+            <label class="opt"><input type="radio" name="skin" value="deep-moisture" checked><span class="opt-name">Deep Moisture</span><span class="opt-note">For dry skin</span></label>
+            <label class="opt"><input type="radio" name="skin" value="matte"><span class="opt-name">Matte</span><span class="opt-note">For oily skin</span></label>
+            <label class="opt"><input type="radio" name="skin" value="balanced"><span class="opt-name">Balanced</span><span class="opt-note">For combination skin</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>03 / Choose a size</legend>
           <div class="opt-row" id="sizeOptions">
             <label class="opt"><input type="radio" name="size" value="50ml" data-price="80"><span class="opt-name">50ml</span><span class="opt-price" data-price-for="50ml">&#8373;80</span></label>
             <label class="opt"><input type="radio" name="size" value="300ml" data-price="200" checked><span class="opt-name">300ml</span><span class="opt-price" data-price-for="300ml">&#8373;200</span></label>
@@ -79,7 +89,7 @@
         </fieldset>
 
         <fieldset>
-          <legend>03 / Where it goes</legend>
+          <legend>04 / Where it goes</legend>
           <div class="field-grid">
             <div class="field">
               <label for="fullName">Name</label>
@@ -118,13 +128,13 @@
 
       <aside class="basket r d1" aria-labelledby="basket-h">
         <h3 id="basket-h">Your reservation</h3>
-        <p class="basket-empty" id="basketEmpty">Nothing held yet. Choose a blend and a size, then add it here.</p>
+        <p class="basket-empty" id="basketEmpty">Nothing held yet. Choose a blend, a skin type and a size, then add it here.</p>
         <ul class="lines" id="lines"></ul>
         <div class="basket-total" hidden id="basketTotal">
           <span class="mono">Indicative total</span>
           <b><span id="totalValue">&#8373;0</span></b>
         </div>
-        <p class="basket-note">Prices are what our testers named for a 300ml jar, scaled for the other two sizes. I will confirm the final total and delivery before anything is paid.</p>
+        <p class="basket-note">Prices come from our own price list and are indicative. I will confirm the final total and delivery before anything is paid.</p>
       </aside>
     </div>
   </div>
@@ -154,7 +164,7 @@
   </div>
 </footer>
 
-<script src="../config.js?v=20260827b" defer></script>
-<script src="../app.js?v=20260827b" defer></script>
+<script src="../config.js?v=20260827c" defer></script>
+<script src="../app.js?v=20260827c" defer></script>
 </body>
 </html>
