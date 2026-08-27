@@ -1,6 +1,17 @@
 (function(){
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  /* Photographs carry the same version string as the stylesheet and this
+     script, taken from this script's own src. Without it a browser that once
+     asked for a photograph before it existed keeps its cached "not found",
+     and a photograph replaced under the same filename never reaches anyone
+     who has already seen the old one. One bump in the HTML clears both. */
+  var SELF = document.currentScript || document.querySelector('script[src*="app.js"]');
+  var VER = (function(){
+    var m = SELF && SELF.getAttribute("src") && SELF.getAttribute("src").match(/[?&]v=([^&]*)/);
+    return m ? "?v=" + m[1] : "";
+  })();
+
   /* ---- drag-to-reveal ---- */
   var slider = document.getElementById("rawRefined");
   var range = document.getElementById("rsRange");
@@ -406,7 +417,7 @@
   (function(){
     var marks = document.querySelectorAll(".wordmark");
     if (!marks.length) return;
-    var src = (document.documentElement.getAttribute("data-base") || "") + "assets/logo.png";
+    var src = (document.documentElement.getAttribute("data-base") || "") + "assets/logo.png" + VER;
     var probe = new Image();
     probe.onload = function(){
       marks.forEach(function(mark){
@@ -429,22 +440,23 @@
   /* a page in a subfolder sets data-base="../" so these paths still resolve */
   var BASE = document.documentElement.getAttribute("data-base") || "";
 
+
   var SLOTS = {
-    "hero-raw": { src: BASE + "assets/hero-raw.jpg", alt: "Raw shea nuts, some split open to show the kernel, gathered in a woven basket" },
-    "hero-jar": { src: BASE + "assets/hero-jar.jpg", video: BASE + "assets/story.mp4", alt: "Banini whipped shea butter in its 50ml, 300ml and 600ml jars on a wooden table" },
-    "story":    { src: BASE + "assets/story.jpg", alt: "The founder of Banini Butter" },
-    "product":  { src: BASE + "assets/product.jpg", alt: "Banini jars of whipped shea butter photographed on a neutral surface" },
-    "blend-sunrise":       { src: BASE + "assets/blend-sunrise.jpg",       alt: "The Sunrise blend in 50ml, 300ml and 600ml jars, tagged with lemon and sweet orange" },
-    "blend-warm-heritage": { src: BASE + "assets/blend-warm-heritage.jpg", alt: "The Warm Heritage blend in 50ml, 300ml and 600ml jars, tagged with cocoa" },
-    "blend-nightfall":     { src: BASE + "assets/blend-nightfall.jpg",     alt: "The Nightfall blend in 50ml, 300ml and 600ml jars, tagged with lavender" },
-    "blend-pure":          { src: BASE + "assets/blend-pure.jpg",          alt: "The Pure unscented blend in 50ml, 300ml and 600ml jars" },
+    "hero-raw": { src: BASE + "assets/hero-raw.jpg" + VER, alt: "Raw shea nuts, some split open to show the kernel, gathered in a woven basket" },
+    "hero-jar": { src: BASE + "assets/hero-jar.jpg" + VER, video: BASE + "assets/story.mp4" + VER, alt: "Banini whipped shea butter in its 50ml, 300ml and 600ml jars on a wooden table" },
+    "story":    { src: BASE + "assets/story.jpg" + VER, alt: "The founder of Banini Butter" },
+    "product":  { src: BASE + "assets/product.jpg" + VER, alt: "Banini jars of whipped shea butter photographed on a neutral surface" },
+    "blend-sunrise":       { src: BASE + "assets/blend-sunrise.jpg" + VER,       alt: "The Sunrise blend in 50ml, 300ml and 600ml jars, tagged with lemon and sweet orange" },
+    "blend-warm-heritage": { src: BASE + "assets/blend-warm-heritage.jpg" + VER, alt: "The Warm Heritage blend in 50ml, 300ml and 600ml jars, tagged with cocoa" },
+    "blend-nightfall":     { src: BASE + "assets/blend-nightfall.jpg" + VER,     alt: "The Nightfall blend in 50ml, 300ml and 600ml jars, tagged with lavender" },
+    "blend-pure":          { src: BASE + "assets/blend-pure.jpg" + VER,          alt: "The Pure unscented blend in 50ml, 300ml and 600ml jars" },
     /* the four making steps. Drop a photograph at any of these paths and it
        takes the place of the drawn illustration, one step at a time. */
-    "step-gathered": { src: BASE + "assets/step-gathered.jpg", alt: "Shea nuts being gathered by hand on the savannah" },
-    "step-pressed":  { src: BASE + "assets/step-pressed.jpg",  alt: "Shea kernels being pounded and pressed into raw butter" },
-    "step-whipped":  { src: BASE + "assets/step-whipped.jpg",  alt: "Shea butter being whipped by hand in Accra" },
-    "step-sealed":   { src: BASE + "assets/step-sealed.jpg",   alt: "A finished Banini jar being sealed and tagged" },
-    "reserve-header": { src: BASE + "assets/hero-jar.jpg", alt: "Banini whipped shea butter in its three jar sizes on a wooden table" }
+    "step-gathered": { src: BASE + "assets/step-gathered.jpg" + VER, alt: "Shea nuts being gathered by hand on the savannah" },
+    "step-pressed":  { src: BASE + "assets/step-pressed.jpg" + VER,  alt: "Shea kernels being pounded and pressed into raw butter" },
+    "step-whipped":  { src: BASE + "assets/step-whipped.jpg" + VER,  alt: "Shea butter being whipped by hand in Accra" },
+    "step-sealed":   { src: BASE + "assets/step-sealed.jpg" + VER,   alt: "A finished Banini jar being sealed and tagged" },
+    "reserve-header": { src: BASE + "assets/hero-jar.jpg" + VER, alt: "Banini whipped shea butter in its three jar sizes on a wooden table" }
   };
 
   Object.keys(SLOTS).forEach(function(name){
