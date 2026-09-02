@@ -435,7 +435,7 @@
 
   /* ---- media slots ----
      Drop a real asset at the path below and it replaces the illustration automatically.
-     assets/hero-raw.jpg, assets/hero-jar.jpg, assets/story.jpg, assets/product.jpg, assets/texture.jpg
+     assets/hero-raw.jpg, assets/hero-jar.jpg, assets/story.jpg, assets/product.jpg
      A .mp4 named assets/story.mp4 takes priority in the story slot. */
   /* a page in a subfolder sets data-base="../" so these paths still resolve */
   var BASE = document.documentElement.getAttribute("data-base") || "";
