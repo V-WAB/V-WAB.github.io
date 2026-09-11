@@ -207,12 +207,26 @@
       var input = rForm.querySelector('input[name="size"][value="' + size + '"]');
       return input ? parseFloat(input.dataset.price) || 0 : 0;
     };
+    /* Until the table arrives, fall back to the prices this blend ships with
+       rather than to the size alone. The size alone is Sunrise's price list,
+       so without this Warm Heritage reads 80 instead of 100 and Pure reads 80
+       instead of 73 for as long as the fetch takes, and for ever if it fails. */
+    var shippedPrice = function(scent, size){
+      var input = rForm.querySelector('input[name="scent"][value="' + scent + '"]');
+      if (input && input.dataset.prices){
+        try {
+          var own = JSON.parse(input.dataset.prices)[size];
+          if (typeof own === "number") return own;
+        } catch (err){ /* fall through to the size's own price */ }
+      }
+      return sizePrice(size);
+    };
     var priceFor = function(scent, skin, size){
       if (priceTable){
         var found = priceTable[key(scent, skin, size)];
         if (found !== undefined) return found;
       }
-      return sizePrice(size);
+      return shippedPrice(scent, size);
     };
 
     /* Until something is added, the panel shows the combination currently
