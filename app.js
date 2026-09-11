@@ -497,7 +497,7 @@
     "step-pressed":  { src: BASE + "assets/step-pressed.jpg" + VER,  alt: "Shea kernels being pounded and pressed into raw butter" },
     "step-whipped":  { src: BASE + "assets/step-whipped.jpg" + VER,  alt: "Shea butter being whipped by hand in Accra" },
     "step-sealed":   { src: BASE + "assets/step-sealed.jpg" + VER,   alt: "A finished Banini jar being sealed and tagged" },
-    "reserve-header": { src: BASE + "assets/hero-jar.jpg" + VER, alt: "Banini whipped shea butter in its three jar sizes on a wooden table" }
+    "reserve-header": { src: BASE + "assets/product.jpg" + VER, alt: "The Banini Butter range on a wooden table: whipped shea butter in glass jars, body oil, facial balm, lip balms and a branded box" }
   };
 
   Object.keys(SLOTS).forEach(function(name){
