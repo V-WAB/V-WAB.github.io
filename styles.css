@@ -463,7 +463,12 @@ legend{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transfor
 /* the header photograph shows the whole range, so the copy says which part
    of it can be reserved today */
 .ph-note{margin:12px 0 0;font-size:14.5px;line-height:1.5;color:rgba(251,247,236,.7);max-width:46ch}
-@media (max-width:620px){.ph-note{font-size:13.5px;margin-top:10px}}
+@media (max-width:620px){
+  .ph-note{font-size:13.5px;margin-top:10px}
+  /* the copy is taller on a narrow screen, so the header is given room
+     rather than the text being squeezed against the top of it */
+  .page-header{height:clamp(340px,46vh,420px)}
+}
 .page-header + section{padding-top:clamp(56px,7vw,96px)}
 
 .waitlist-cross{
