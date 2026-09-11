@@ -24,7 +24,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=DM+Mono:wght@400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../styles.css?v=20260911a">
+<link rel="stylesheet" href="../styles.css?v=20260911e">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -67,29 +67,50 @@
       <form id="reserveForm" class="r" novalidate>
         <fieldset>
           <legend>Choose a blend</legend>
-          <div class="opt-row" id="scentOptions">
-            <label class="opt"><input type="radio" name="scent" value="sunrise" checked><span class="opt-name">Sunrise</span><span class="opt-note">Lemongrass and sweet orange</span></label>
-            <label class="opt"><input type="radio" name="scent" value="warm-heritage"><span class="opt-name">Warm Heritage</span><span class="opt-note">Raw cocoa and benzoin</span></label>
-            <label class="opt"><input type="radio" name="scent" value="nightfall"><span class="opt-name">Nightfall</span><span class="opt-note">Lavender and frankincense</span></label>
-            <label class="opt"><input type="radio" name="scent" value="pure"><span class="opt-name">Pure</span><span class="opt-note">Unscented</span></label>
+          <div class="opt-grid blends" id="scentOptions">
+            <label class="opt-card"><input type="radio" name="scent" value="sunrise" checked>
+              <figure class="opt-shot" data-slot="blend-sunrise" hidden></figure>
+              <span class="opt-name">Sunrise</span><span class="opt-note">Lemongrass and sweet orange</span></label>
+            <label class="opt-card"><input type="radio" name="scent" value="warm-heritage">
+              <figure class="opt-shot" data-slot="blend-warm-heritage" hidden></figure>
+              <span class="opt-name">Warm Heritage</span><span class="opt-note">Raw cocoa and benzoin</span></label>
+            <label class="opt-card"><input type="radio" name="scent" value="nightfall">
+              <figure class="opt-shot" data-slot="blend-nightfall" hidden></figure>
+              <span class="opt-name">Nightfall</span><span class="opt-note">Lavender and frankincense</span></label>
+            <label class="opt-card"><input type="radio" name="scent" value="pure">
+              <figure class="opt-shot" data-slot="blend-pure" hidden></figure>
+              <span class="opt-name">Pure</span><span class="opt-note">Unscented</span></label>
           </div>
         </fieldset>
 
         <fieldset>
           <legend>Choose your skin</legend>
-          <div class="opt-row" id="skinOptions">
-            <label class="opt"><input type="radio" name="skin" value="deep-moisture" checked><span class="opt-name">Deep Moisture</span><span class="opt-note">For dry skin</span></label>
-            <label class="opt"><input type="radio" name="skin" value="matte"><span class="opt-name">Matte</span><span class="opt-note">For oily skin</span></label>
-            <label class="opt"><input type="radio" name="skin" value="balanced"><span class="opt-name">Balanced</span><span class="opt-note">For combination skin</span></label>
+          <div class="opt-grid skins" id="skinOptions">
+            <label class="opt-card"><input type="radio" name="skin" value="deep-moisture" checked>
+              <span class="opt-name">Deep Moisture</span><span class="opt-note">For dry skin</span>
+              <span class="opt-body">The richest of the three. For skin that drinks it in and asks for more.</span></label>
+            <label class="opt-card"><input type="radio" name="skin" value="matte">
+              <span class="opt-name">Matte</span><span class="opt-note">For oily skin</span>
+              <span class="opt-body">Lighter, and it finishes without shine. Sits down quickly and stays down.</span></label>
+            <label class="opt-card"><input type="radio" name="skin" value="balanced">
+              <span class="opt-name">Balanced</span><span class="opt-note">For combination skin</span>
+              <span class="opt-body">The middle road. Enough for the dry patches without overdoing the rest.</span></label>
           </div>
         </fieldset>
 
         <fieldset>
           <legend>Choose a size</legend>
-          <div class="opt-row" id="sizeOptions">
-            <label class="opt"><input type="radio" name="size" value="50ml" data-price="80"><span class="opt-name">50ml</span><span class="opt-price" data-price-for="50ml">&#8373;80</span></label>
-            <label class="opt"><input type="radio" name="size" value="300ml" data-price="200" checked><span class="opt-name">300ml</span><span class="opt-price" data-price-for="300ml">&#8373;200</span></label>
-            <label class="opt"><input type="radio" name="size" value="600ml" data-price="400"><span class="opt-name">600ml</span><span class="opt-price" data-price-for="600ml">&#8373;400</span></label>
+          <figure class="size-shot">
+            <img src="../assets/sizes.jpg" alt="The 50ml, 300ml and 600ml jars side by side on a wooden table" width="1400" height="618" decoding="async" loading="lazy">
+            <figcaption>Left to right: 50ml, 300ml, 600ml.</figcaption>
+          </figure>
+          <div class="opt-grid sizes" id="sizeOptions">
+            <label class="opt-card"><input type="radio" name="size" value="50ml" data-price="80">
+              <span class="opt-name">50ml</span><span class="opt-price" data-price-for="50ml">&#8373;80</span></label>
+            <label class="opt-card"><input type="radio" name="size" value="300ml" data-price="200" checked>
+              <span class="opt-name">300ml</span><span class="opt-price" data-price-for="300ml">&#8373;200</span></label>
+            <label class="opt-card"><input type="radio" name="size" value="600ml" data-price="400">
+              <span class="opt-name">600ml</span><span class="opt-price" data-price-for="600ml">&#8373;400</span></label>
           </div>
           <div class="qty-row" style="margin-top:20px">
             <div class="field narrow">
@@ -140,7 +161,15 @@
 
       <aside class="basket r d1" aria-labelledby="basket-h">
         <h3 id="basket-h">Your reservation</h3>
-        <p class="basket-empty" id="basketEmpty">Nothing held yet. Choose a blend, a skin type and a size, then add it here.</p>
+        <p class="basket-empty" id="basketEmpty">Nothing held yet. This is what you have chosen so far.</p>
+        <div class="basket-preview" id="basketPreview">
+          <figure class="prev-shot"><img id="prevImg" alt="" decoding="async"></figure>
+          <div class="prev-copy">
+            <span class="prev-name" id="prevName">Sunrise</span>
+            <span class="prev-spec" id="prevSpec">Deep Moisture &#183; 300ml</span>
+          </div>
+          <span class="prev-price" id="prevPrice">&#8373;200</span>
+        </div>
         <ul class="lines" id="lines"></ul>
         <div class="basket-total" hidden id="basketTotal">
           <span class="mono">Indicative total</span>
@@ -177,6 +206,6 @@
 </footer>
 
 <script src="../config.js?v=20260828a" defer></script>
-<script src="../app.js?v=20260911a" defer></script>
+<script src="../app.js?v=20260911b" defer></script>
 </body>
 </html>
