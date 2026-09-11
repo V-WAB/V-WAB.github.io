@@ -460,6 +460,10 @@ legend{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transfor
 .ph-copy h1{font-size:clamp(42px,5.6vw,80px);color:var(--cream);margin-bottom:14px}
 .ph-copy h1 em{color:var(--gold-soft)}
 .ph-copy .lede{color:rgba(251,247,236,.86);max-width:44ch}
+/* the header photograph shows the whole range, so the copy says which part
+   of it can be reserved today */
+.ph-note{margin:12px 0 0;font-size:14.5px;line-height:1.5;color:rgba(251,247,236,.7);max-width:46ch}
+@media (max-width:620px){.ph-note{font-size:13.5px;margin-top:10px}}
 .page-header + section{padding-top:clamp(56px,7vw,96px)}
 
 .waitlist-cross{
