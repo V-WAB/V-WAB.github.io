@@ -368,9 +368,12 @@ legend{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transfor
 
 /* size cards show the jar, so 50ml and 600ml are not just two prices */
 .opt-grid.sizes .opt-card{align-items:center;text-align:center}
-.jar-well{display:flex;align-items:flex-end;justify-content:center;width:100%;height:82px;padding-top:18px}
-.jar{width:auto;display:block;fill:none;stroke:var(--gold-soft);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;transition:stroke .25s ease}
-.opt-card:has(input:checked) .jar{stroke:var(--green)}
+/* the three jars are cut from the Pure photograph and scaled by one common
+   factor, so 50ml really does stand shorter than 600ml */
+.jar-well{display:flex;align-items:flex-end;justify-content:center;width:100%;height:146px;padding-top:14px}
+.jar{width:auto;max-width:100%;display:block;object-fit:contain;object-position:bottom;
+  filter:saturate(.96);transition:transform .3s ease}
+.opt-card:hover .jar{transform:translateY(-3px)}
 .opt-grid.sizes .opt-name{margin-top:12px}
 .opt-grid.sizes .opt-price{margin-top:6px;font-size:13px}
 .qty-row{display:flex;flex-wrap:wrap;align-items:flex-end;gap:14px}
