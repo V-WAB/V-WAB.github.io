@@ -211,7 +211,6 @@ section{padding:clamp(72px,10vw,132px) 0}
 }
 @media (max-width:600px){.step-shot{aspect-ratio:4 / 5}}
 .step-shot img,.step-shot .media,.step-shot video{width:100%;height:100%;object-fit:cover;display:block}
-.step .label{color:var(--gold);display:block;margin-bottom:12px}
 .step h3{margin-bottom:9px}
 .step p{margin:0;font-size:15.5px;color:var(--ink-soft)}
 
@@ -310,7 +309,6 @@ footer{padding:44px 0}
 }
 .scent-shot img,.scent-shot .media{width:100%;height:100%;object-fit:cover;display:block}
 @media (max-width:880px){.scent-shot{aspect-ratio:3 / 1}}
-.scent .label{color:var(--gold);display:block;margin-bottom:12px}
 .scent h3{margin-bottom:6px}
 .scent .blend{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-bottom:12px}
 .scent p{margin:0;font-size:15.5px;color:var(--ink-soft)}
