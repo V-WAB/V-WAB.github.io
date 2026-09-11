@@ -388,8 +388,9 @@
         var p1 = document.createElement("p");
         p1.textContent = "That is your reference. Keep it somewhere, I will use it when I write to you.";
         var p2 = document.createElement("p");
-        p2.textContent = lines.reduce(function(n, line){ return n + line.quantity; }, 0)
-          + " jars, indicative total " + cedi(data.total_ghs)
+        var jars = lines.reduce(function(n, line){ return n + line.quantity; }, 0);
+        p2.textContent = jars + (jars === 1 ? " jar" : " jars")
+          + ", indicative total " + cedi(data.total_ghs)
           + ". Nothing has been charged and nothing is owed until you confirm.";
         done.appendChild(h);
         done.appendChild(ref);
@@ -403,8 +404,11 @@
         placed = true;
         render();
         document.getElementById("basket-h").textContent = "Reserved";
-        document.querySelector(".basket-note").textContent =
-          "Held under " + data.reference + ". Write to me if you want to change it.";
+        var note = document.querySelector(".basket-note");
+        if (note){
+          note.textContent = "Held under " + data.reference + ". Write to me if you want to change it.";
+          note.hidden = false;
+        }
       }).catch(function(err){
         rNote.dataset.state = "error";
         rNote.textContent = reason(err);
