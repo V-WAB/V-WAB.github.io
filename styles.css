@@ -263,7 +263,7 @@ section{padding:clamp(72px,10vw,132px) 0}
 @media (max-width:880px){.pillars{grid-template-columns:1fr}}
 
 /* ---------- voices ---------- */
-.voices{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(28px,4vw,56px);margin-top:56px}
+.voices{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:clamp(28px,4vw,56px);margin-top:56px}
 .voice{margin:0;border-top:1px solid rgba(251,247,236,.22);padding-top:26px}
 .voice blockquote{margin:0;font-family:var(--display);font-size:clamp(21px,2.3vw,26px);line-height:1.35;color:var(--cream)}
 .voice figcaption{
