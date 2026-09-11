@@ -193,7 +193,7 @@
 
     var checked = function(name){ return rForm.querySelector('input[name="' + name + '"]:checked'); };
     var labelFor = function(input){
-      var el = input.closest(".opt").querySelector(".opt-name");
+      var el = input.closest(".opt-card").querySelector(".opt-name");
       return el ? el.textContent.trim() : input.value;
     };
     /* Every one of the thirty-six products can carry its own price, so the
@@ -213,6 +213,23 @@
         if (found !== undefined) return found;
       }
       return sizePrice(size);
+    };
+
+    /* Until something is added, the panel shows the combination currently
+       chosen, so it reacts as you pick rather than sitting empty. */
+    var prev = document.getElementById("basketPreview");
+    var paintPreview = function(){
+      if (!prev) return;
+      var scent = checked("scent"), skin = checked("skin"), size = checked("size");
+      if (!scent || !skin || !size) return;
+      var img = document.getElementById("prevImg");
+      var shot = scent.closest(".opt-card").querySelector(".opt-shot img");
+      if (shot){ img.src = shot.src; img.hidden = false; } else { img.hidden = true; }
+      document.getElementById("prevName").textContent = labelFor(scent);
+      document.getElementById("prevSpec").textContent =
+        labelFor(skin) + " \u00b7 " + labelFor(size);
+      document.getElementById("prevPrice").textContent =
+        cedi(priceFor(scent.value, skin.value, size.value));
     };
 
     var render = function(){
@@ -254,6 +271,7 @@
       });
 
       emptyEl.hidden = lines.length > 0;
+      if (prev) prev.hidden = lines.length > 0;
       totalEl.hidden = lines.length === 0;
       totalValue.textContent = cedi(total);
     };
@@ -392,6 +410,7 @@
     };
     rForm.addEventListener("change", function(ev){
       if (ev.target.name === "scent" || ev.target.name === "skin") paintSizePrices();
+      paintPreview();
     });
 
     /* prices live in the database, so refresh them when we are connected */
@@ -405,10 +424,14 @@
           priceTable[key(row.scent_slug, row.skin_slug, row.size_slug)] = parseFloat(row.price_ghs);
         });
         paintSizePrices();
+        paintPreview();
         render();
       }).catch(function(){ /* the page keeps the prices it shipped with */ });
     }
     paintSizePrices();
+    paintPreview();
+    /* the blend photographs arrive after the slots are filled */
+    window.addEventListener("load", paintPreview);
   }
 
   /* ---- logo ----
