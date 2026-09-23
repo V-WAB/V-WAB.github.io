@@ -316,6 +316,9 @@ footer{padding:44px 0}
 .scent p{margin:0;font-size:15.5px;color:var(--ink-soft)}
 .size-strip{display:flex;flex-wrap:wrap;gap:10px 34px;margin-top:44px;padding-top:22px;border-top:1px solid var(--line-soft)}
 .size-strip span{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)}
+/* the three sizes wrap as one, so the label can never take one of them
+   onto its own line and leave the other two below */
+.size-strip-list{display:flex;flex-wrap:wrap;gap:10px 34px}
 .size-strip b{color:var(--gold);font-weight:400}
 @media (max-width:600px){.scent-grid{grid-template-columns:1fr}}
 
