@@ -447,8 +447,10 @@ legend{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transfor
 /* ---------- legal pages ---------- */
 .legal-h1{font-size:clamp(38px,5.2vw,68px);margin-bottom:20px}
 .legal{max-width:62ch;margin-top:clamp(40px,5vw,64px)}
-.legal-date{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--ink-soft);margin:0 0 34px;padding-bottom:18px;border-bottom:1px solid var(--line-soft)}
+/* the date sits at the foot, quieter than the policy it dates.
+   Scoped under .legal so it outranks .legal p, which sets 16.5px. */
+.legal .legal-date{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-soft);opacity:.72;margin:12px 0 0;line-height:1.6}
 .legal h2{font-size:clamp(20px,2.2vw,25px);margin:38px 0 12px}
 .legal h2:first-of-type{margin-top:0}
 .legal p{margin:0 0 14px;color:var(--ink-soft);font-size:16.5px;line-height:1.7}
