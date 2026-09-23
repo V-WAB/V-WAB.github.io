@@ -361,6 +361,13 @@
         phone.focus();
         return;
       }
+      var city = document.getElementById("city");
+      if (city.value.trim().length < 2){
+        rNote.dataset.state = "error";
+        rNote.textContent = "Please tell me which town or city to send them to.";
+        city.focus();
+        return;
+      }
 
       submitBtn.disabled = true;
       rNote.dataset.state = "ok";

@@ -24,7 +24,7 @@
 <link rel="preload" href="/assets/fonts/cormorant-garamond-400-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/jost-300-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=20260923a">
-<link rel="stylesheet" href="../styles.css?v=20260923b">
+<link rel="stylesheet" href="../styles.css?v=20260923c">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -50,7 +50,6 @@
   <div class="ph-scrim" aria-hidden="true"></div>
   <div class="ph-copy">
     <div class="shell">
-      <span class="eyebrow">The first run</span>
       <h1 id="ph-h">Reserve a <em>jar.</em></h1>
       <p class="lede">Small batches, whipped to order in Accra. Tell me what you want and I will hold it for you.</p>
       <p class="ph-note">Body oil, balms and more, coming soon.</p>
@@ -74,7 +73,7 @@
               <span class="opt-name">Sunrise</span><span class="opt-note">Lemongrass and sweet orange</span></label>
             <label class="opt-card"><input type="radio" name="scent" value="warm-heritage" data-prices='{"50ml":100,"300ml":250,"600ml":500}'>
               <figure class="opt-shot" data-slot="blend-warm-heritage" hidden></figure>
-              <span class="opt-name">Warm Heritage</span><span class="opt-note">Raw cocoa and benzoin</span></label>
+              <span class="opt-name">Warm Heritage</span><span class="opt-note">Raw cocoa and vanilla</span></label>
             <label class="opt-card"><input type="radio" name="scent" value="nightfall" data-prices='{"50ml":80,"300ml":200,"600ml":400}'>
               <figure class="opt-shot" data-slot="blend-nightfall" hidden></figure>
               <span class="opt-name">Nightfall</span><span class="opt-note">Lavender and frankincense</span></label>
@@ -138,8 +137,8 @@
               <input type="tel" id="phone" name="phone" autocomplete="tel" maxlength="40" required>
             </div>
             <div class="field">
-              <label for="city">Town or city, optional</label>
-              <input type="text" id="city" name="city" autocomplete="address-level2" maxlength="120">
+              <label for="city">Town or city</label>
+              <input type="text" id="city" name="city" autocomplete="address-level2" maxlength="120" required>
             </div>
           </div>
           <div class="field" style="margin-top:18px">
@@ -211,6 +210,6 @@
 </footer>
 
 <script src="../config.js?v=20260828a" defer></script>
-<script src="../app.js?v=20260911e" defer></script>
+<script src="../app.js?v=20260923a" defer></script>
 </body>
 </html>
