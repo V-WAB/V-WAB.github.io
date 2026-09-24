@@ -8,6 +8,11 @@
 -- is not the thing that decides. This teaches the database to insist too,
 -- so a reservation without a town cannot be created by any route.
 --
+-- If the SQL editor ever reports "unterminated dollar-quoted string", it has
+-- injected its own statement into the middle of a function body. It does that
+-- when it sees SELECT ... INTO and mistakes a PL/pgSQL variable for a new
+-- table. Assignments avoid it, which is why this file has none.
+--
 -- The preorders.city column stays nullable, because reservations already
 -- placed without a town would fail a NOT NULL. The function is what
 -- enforces it from here on.
@@ -72,9 +77,15 @@ begin
     raise exception 'too_many_items' using hint = 'A single reservation holds up to 10 lines.';
   end if;
 
-  select count(*) into v_recent
-  from public.preorders
-  where email = v_email and created_at > now() - interval '1 hour';
+  /* Written as an assignment, not SELECT INTO. At the top level of a script,
+     SELECT ... INTO <name> creates a table. The Supabase SQL editor scans for
+     that without noticing it sits inside a function body, then appends an
+     ALTER TABLE ... ENABLE ROW LEVEL SECURITY into the middle of this function
+     and breaks the quoting around it. */
+  v_recent := (select count(*)
+                 from public.preorders
+                where email = v_email
+                  and created_at > now() - interval '1 hour');
 
   if v_recent >= 5 then
     raise exception 'rate_limited' using hint = 'That is a lot of reservations in one hour. Write to us instead.';
@@ -109,9 +120,12 @@ begin
     end if;
 
     /* the price is the database's to decide, never the browser's */
-    select price_ghs into v_price
-    from public.product_prices
-    where scent_slug = v_scent and skin_slug = v_skin and size_slug = v_size and active;
+    v_price := (select price_ghs
+                  from public.product_prices
+                 where scent_slug = v_scent
+                   and skin_slug  = v_skin
+                   and size_slug  = v_size
+                   and active);
 
     if v_price is null then
       raise exception 'unknown_product'
