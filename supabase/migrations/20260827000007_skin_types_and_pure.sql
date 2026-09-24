@@ -1,5 +1,14 @@
 -- Banini Butter: the full range. Four blends, three skin types, three sizes.
 --
+-- SUPERSEDED IN PART. The create_preorder in this file does not require a town
+-- or city; 20260923000001 replaces it with one that does. Re-running this file
+-- would put the old function back and quietly drop that rule, so run the later
+-- file again afterwards if you ever do.
+--
+-- This file also contains SELECT ... INTO inside the function body, which the
+-- Supabase SQL editor now mistakes for a table being created and breaks on.
+-- The later file writes those as assignments instead.
+--
 -- Paste this whole file into a NEW query tab, highlight nothing, press Run.
 -- It ends by printing all thirty-six products with their prices, so you can
 -- read the range back before anyone else orders from it.
