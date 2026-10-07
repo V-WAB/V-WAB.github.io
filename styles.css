@@ -49,7 +49,7 @@ em{font-style:italic}
 p{margin:0 0 1.1em}
 .lede{font-size:clamp(18px,2vw,21px);color:var(--ink-soft);max-width:56ch}
 
-.mono,.eyebrow,.label,.stat-label{
+.mono,.eyebrow,.label,.stat-label,.price{
   font-family:var(--mono);text-transform:uppercase;letter-spacing:.16em;font-size:11px;font-weight:400;
 }
 .eyebrow{color:var(--gold);display:block;margin-bottom:26px}
@@ -352,6 +352,7 @@ legend{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transfor
 .opt-name{font-family:var(--display);font-size:22px;line-height:1.15;margin-top:16px}
 .opt-note{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-top:8px}
 .opt-body{font-size:14.5px;line-height:1.55;color:var(--ink-soft);margin-top:12px}
+.opt-price{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--gold)}
 
 .opt-shot{margin:0;width:100%;aspect-ratio:5 / 2;overflow:hidden;background:var(--kraft)}
 .opt-shot img,.opt-shot .media{width:100%;height:100%;object-fit:cover;display:block}
@@ -373,10 +374,9 @@ legend{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transfor
 .size-shot img{width:100%;height:auto;display:block}
 .size-shot figcaption{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
   color:var(--ink-soft);padding:12px 16px;border-top:1px solid var(--line-soft);background:var(--cream)}
-/* with the price gone the card holds one word, so the space above it, left
-   clear for the tick, is balanced by the same below */
-.opt-grid.sizes .opt-card{padding-top:4px;padding-bottom:38px}
+.opt-grid.sizes .opt-card{padding-top:4px}
 .opt-grid.sizes .opt-name{margin-top:42px}
+.opt-grid.sizes .opt-price{margin-top:6px;margin-bottom:2px;font-size:13px}
 .qty-row{display:flex;flex-wrap:wrap;align-items:flex-end;gap:14px}
 .field{display:flex;flex-direction:column;gap:8px;min-width:0}
 .field label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)}
@@ -400,23 +400,28 @@ legend{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transfor
 .basket h3{margin-bottom:18px}
 .basket-empty{font-size:15.5px;color:var(--ink-soft);margin:0}
 /* the panel shows the current choice before anything is added to it */
-.basket-preview{display:grid;grid-template-columns:72px 1fr;gap:14px;align-items:center;
+.basket-preview{display:grid;grid-template-columns:72px 1fr auto;gap:14px;align-items:center;
   margin-top:18px;padding-top:18px;border-top:1px solid var(--line-soft)}
 .prev-shot{margin:0;width:72px;aspect-ratio:1;overflow:hidden;background:var(--cream);border:1px solid var(--line-soft)}
 .prev-shot img{width:100%;height:100%;object-fit:cover;display:block}
 .prev-copy{display:flex;flex-direction:column;gap:5px;min-width:0}
 .prev-name{font-family:var(--display);font-size:20px;line-height:1.1}
 .prev-spec{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+.prev-price{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--gold)}
 
 .lines{list-style:none;margin:0;padding:0}
-.lines li{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--line-soft)}
+.lines li{display:grid;grid-template-columns:1fr auto auto;gap:14px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--line-soft)}
 .lines .line-name{font-size:16px}
 .lines .line-name small{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-top:4px}
+.lines .line-cost{font-family:var(--mono);font-size:12px;letter-spacing:.08em}
 .lines .remove{
   background:none;border:0;padding:4px 6px;cursor:pointer;color:var(--ink-soft);
   font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
 }
 .lines .remove:hover{color:var(--clay)}
+.basket-total{display:flex;justify-content:space-between;align-items:baseline;margin-top:20px;padding-top:18px;border-top:1px solid var(--line)}
+.basket-total .mono{color:var(--ink-soft)}
+.basket-total b{font-family:var(--display);font-size:30px;font-weight:400;color:var(--green)}
 .basket-note{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin:18px 0 0;line-height:1.9}
 .reserve-actions{display:flex;flex-wrap:wrap;gap:16px;align-items:center;margin-top:28px}
 .btn[disabled]{opacity:.5;cursor:not-allowed}
