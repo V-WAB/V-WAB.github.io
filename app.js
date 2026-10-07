@@ -139,6 +139,11 @@
   };
 
   var EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  var cedi = function(n){
+    var whole = Math.round(n * 100) / 100;
+    var text = whole % 1 === 0 ? String(whole) : whole.toFixed(2);
+    return "\u20B5" + text.replace(/\B(?=(\d{3})+(?!\d))/, ",");
+  };
 
   /* ---- waitlist ---- */
   var form = document.getElementById("signup");
@@ -179,6 +184,8 @@
     var rNote = document.getElementById("reserveNote");
     var linesEl = document.getElementById("lines");
     var emptyEl = document.getElementById("basketEmpty");
+    var totalEl = document.getElementById("basketTotal");
+    var totalValue = document.getElementById("totalValue");
     var submitBtn = document.getElementById("reserveSubmit");
     var qtyEl = document.getElementById("qty");
     var lines = [];
@@ -189,9 +196,38 @@
       var el = input.closest(".opt-card").querySelector(".opt-name");
       return el ? el.textContent.trim() : input.value;
     };
-    /* Prices are the database's business and never reach the browser. Nothing
-       on this page carries one, create_preorder prices every line itself on
-       submit, and the total goes out in the email rather than onto the page. */
+    /* Every one of the thirty-six products can carry its own price, so the
+       browser reads the real table rather than assuming size decides it. The
+       size's own price is the fallback until that table arrives, and the
+       database prices the order again on submit either way. */
+    var priceTable = null;
+    var key = function(scent, skin, size){ return scent + "|" + skin + "|" + size; };
+
+    var sizePrice = function(size){
+      var input = rForm.querySelector('input[name="size"][value="' + size + '"]');
+      return input ? parseFloat(input.dataset.price) || 0 : 0;
+    };
+    /* Until the table arrives, fall back to the prices this blend ships with
+       rather than to the size alone. The size alone is Sunrise's price list,
+       so without this Warm Heritage reads 80 instead of 100 and Pure reads 80
+       instead of 73 for as long as the fetch takes, and for ever if it fails. */
+    var shippedPrice = function(scent, size){
+      var input = rForm.querySelector('input[name="scent"][value="' + scent + '"]');
+      if (input && input.dataset.prices){
+        try {
+          var own = JSON.parse(input.dataset.prices)[size];
+          if (typeof own === "number") return own;
+        } catch (err){ /* fall through to the size's own price */ }
+      }
+      return sizePrice(size);
+    };
+    var priceFor = function(scent, skin, size){
+      if (priceTable){
+        var found = priceTable[key(scent, skin, size)];
+        if (found !== undefined) return found;
+      }
+      return shippedPrice(scent, size);
+    };
 
     /* Until something is added, the panel shows the combination currently
        chosen, so it reacts as you pick rather than sitting empty. */
@@ -206,11 +242,16 @@
       document.getElementById("prevName").textContent = labelFor(scent);
       document.getElementById("prevSpec").textContent =
         labelFor(skin) + " \u00b7 " + labelFor(size);
+      document.getElementById("prevPrice").textContent =
+        cedi(priceFor(scent.value, skin.value, size.value));
     };
 
     var render = function(){
       linesEl.textContent = "";
+      var total = 0;
       lines.forEach(function(line, index){
+        var cost = priceFor(line.scent, line.skin, line.size) * line.quantity;
+        total += cost;
 
         var li = document.createElement("li");
         var name = document.createElement("span");
@@ -220,7 +261,12 @@
         small.textContent = line.quantity + (line.quantity === 1 ? " jar" : " jars");
         name.appendChild(small);
 
+        var cell = document.createElement("span");
+        cell.className = "line-cost";
+        cell.textContent = cedi(cost);
+
         li.appendChild(name);
+        li.appendChild(cell);
 
         if (!placed){
           var remove = document.createElement("button");
@@ -240,6 +286,8 @@
 
       emptyEl.hidden = lines.length > 0;
       if (prev) prev.hidden = lines.length > 0;
+      totalEl.hidden = lines.length === 0;
+      totalValue.textContent = cedi(total);
     };
 
     document.getElementById("addLine").addEventListener("click", function(){
@@ -349,8 +397,8 @@
         var p2 = document.createElement("p");
         var jars = lines.reduce(function(n, line){ return n + line.quantity; }, 0);
         p2.textContent = jars + (jars === 1 ? " jar" : " jars")
-          + " held. Nothing has been charged, and I will write to you with the"
-          + " total and the delivery options before anything is owed.";
+          + ", indicative total " + cedi(data.total_ghs)
+          + ". Nothing has been charged and nothing is owed until you confirm.";
         done.appendChild(h);
         done.appendChild(ref);
         done.appendChild(p1);
@@ -375,10 +423,37 @@
       });
     });
 
-    rForm.addEventListener("change", function(){
+    /* the price beside each size is for the blend and skin currently picked,
+       so it follows the other two choices around */
+    var paintSizePrices = function(){
+      var scent = checked("scent"), skin = checked("skin");
+      if (!scent || !skin) return;
+      rForm.querySelectorAll('input[name="size"]').forEach(function(input){
+        var tag = document.querySelector('[data-price-for="' + input.value + '"]');
+        if (tag) tag.textContent = cedi(priceFor(scent.value, skin.value, input.value));
+      });
+    };
+    rForm.addEventListener("change", function(ev){
+      if (ev.target.name === "scent" || ev.target.name === "skin") paintSizePrices();
       paintPreview();
     });
 
+    /* prices live in the database, so refresh them when we are connected */
+    if (connected){
+      fetch(API + "/rest/v1/product_prices?select=scent_slug,skin_slug,size_slug,price_ghs&active=eq.true", {
+        headers: { "apikey": KEY, "Authorization": "Bearer " + KEY }
+      }).then(function(res){ return res.ok ? res.json() : null; }).then(function(rows){
+        if (!rows || !rows.length) return;      /* before the migration is run */
+        priceTable = {};
+        rows.forEach(function(row){
+          priceTable[key(row.scent_slug, row.skin_slug, row.size_slug)] = parseFloat(row.price_ghs);
+        });
+        paintSizePrices();
+        paintPreview();
+        render();
+      }).catch(function(){ /* the page keeps the prices it shipped with */ });
+    }
+    paintSizePrices();
     paintPreview();
     /* the blend photographs arrive after the slots are filled */
     window.addEventListener("load", paintPreview);
